@@ -22,6 +22,7 @@ public class Clientes
     private static String email;
     private static String dataCadCliente;
     private static ResultSet retorno;
+    private static final String TABLE_NAME = "Clientes";
     
     /**
      * @return the codCliente
@@ -195,11 +196,23 @@ public class Clientes
     {
         try
         {
-            Banco.Inserir("Clientes", "nome, endereco, bairro, cidade, uf, cep, telefone, e_mail", "'" + nome + "','" + endereco + "','" + bairro + "','" + cidade + "','" + uf + "','" + cep + "','" + telefone + "','" + email + "'");
+            Banco.Inserir(TABLE_NAME, "nome, endereco, bairro, cidade, uf, cep, telefone, e_mail", "'" + nome + "','" + endereco + "','" + bairro + "','" + cidade + "','" + uf + "','" + cep + "','" + telefone + "','" + email + "'");
         }
         catch (ErroHandle | ClassNotFoundException e)
         {
             throw new erro.ErroHandle("Falha ao inserir novo Cliente");
+        }
+    }
+    
+    public static void Alterar() throws ErroHandle
+    {
+        try
+        {
+            Banco.Alterar(TABLE_NAME, String.format("nome = '%1$s', endereco = '%2$s', bairro = '%3$s', cidade = '%4$s', uf = '%5$s', cep = '%6$s', telefone = '%7$s', e_mail = '%8$s'", nome, endereco, bairro, cidade, uf, cep, telefone, email), "codcliente = " + codCliente);
+        }
+        catch (ErroHandle | ClassNotFoundException e)
+        {
+            throw new erro.ErroHandle("Falha ao alterar Cliente");
         }
     }
     
@@ -214,7 +227,7 @@ public class Clientes
                 throw new erro.ErroHandle("Não pode ser realizar a exclusão do cliente devido ao fato do mesmo já ter realizado compras.");
             }
             
-            Banco.Apagar("Clientes", "CodCliente = " + codCliente);
+            Banco.Apagar(TABLE_NAME, "CodCliente = " + codCliente);
         }
         catch (ErroHandle | ClassNotFoundException | SQLException e)
         {
@@ -226,7 +239,7 @@ public class Clientes
         }
     }
     
-    public static void EstatisticaVendasCliente()
+    public static ResultSet EstatisticaVendasCliente()
     {
         retorno = null;
         try
@@ -237,5 +250,6 @@ public class Clientes
         {
             // TO-DO
         }
+        return retorno;
     }
 }
