@@ -21,56 +21,56 @@ public class Vendas
     /**
      * @return the codVenda
      */
-    public static int getCodVenda() {
+    public int getCodVenda() {
         return codVenda;
     }
 
     /**
      * @param aCodVenda the codVenda to set
      */
-    public static void setCodVenda(int aCodVenda) {
+    public void setCodVenda(int aCodVenda) {
         codVenda = aCodVenda;
     }
 
     /**
      * @return the codVendedor
      */
-    public static int getCodVendedor() {
+    public int getCodVendedor() {
         return codVendedor;
     }
 
     /**
      * @param aCodVendedor the codVendedor to set
      */
-    public static void setCodVendedor(int aCodVendedor) {
+    public void setCodVendedor(int aCodVendedor) {
         codVendedor = aCodVendedor;
     }
 
     /**
      * @return the codCliente
      */
-    public static int getCodCliente() {
+    public int getCodCliente() {
         return codCliente;
     }
 
     /**
      * @param aCodCliente the codCliente to set
      */
-    public static void setCodCliente(int aCodCliente) {
+    public void setCodCliente(int aCodCliente) {
         codCliente = aCodCliente;
     }
 
     /**
      * @return the dataVenda
      */
-    public static Date getDataVenda() {
+    public Date getDataVenda() {
         return dataVenda;
     }
 
     /**
      * @param aDataVenda the dataVenda to set
      */
-    public static void setDataVenda(Date aDataVenda) {
+    public void setDataVenda(Date aDataVenda) {
         dataVenda = aDataVenda;
     }
 

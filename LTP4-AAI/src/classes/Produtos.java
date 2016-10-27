@@ -23,75 +23,75 @@ public class Produtos
     /**
      * @return the codProduto
      */
-    public static int getCodProduto() {
+    public int getCodProduto() {
         return codProduto;
     }
 
     /**
      * @param aCodProduto the codProduto to set
      */
-    public static void setCodProduto(int aCodProduto) {
+    public void setCodProduto(int aCodProduto) {
         codProduto = aCodProduto;
     }
 
     /**
      * @return the produto
      */
-    public static String getProduto() {
+    public String getProduto() {
         return produto;
     }
 
     /**
      * @param aProduto the produto to set
      */
-    public static void setProduto(String aProduto) {
+    public void setProduto(String aProduto) {
         produto = aProduto;
     }
 
     /**
      * @return the codUnidade
      */
-    public static int getCodUnidade() {
+    public int getCodUnidade() {
         return codUnidade;
     }
 
     /**
      * @param aCodUnidade the codUnidade to set
      */
-    public static void setCodUnidade(int aCodUnidade) {
+    public void setCodUnidade(int aCodUnidade) {
         codUnidade = aCodUnidade;
     }
 
     /**
      * @return the precoUnidade
      */
-    public static double getPrecoUnidade() {
+    public double getPrecoUnidade() {
         return precoUnidade;
     }
 
     /**
      * @param aPrecoUnidade the precoUnidade to set
      */
-    public static void setPrecoUnidade(double aPrecoUnidade) {
+    public void setPrecoUnidade(double aPrecoUnidade) {
         precoUnidade = aPrecoUnidade;
     }
 
     /**
      * @return the dataPreco
      */
-    public static Date getDataPreco() {
+    public Date getDataPreco() {
         return dataPreco;
     }
 
     /**
      * @param aDataPreco the dataPreco to set
      */
-    public static void setDataPreco(Date aDataPreco) {
+    public void setDataPreco(Date aDataPreco) {
         dataPreco = aDataPreco;
     }
     
     
-    public static ResultSet PesquisaPeloCod() throws ErrorHandle
+    public ResultSet PesquisaPeloCod() throws ErrorHandle
     {
         retorno = null;
         try
@@ -100,12 +100,12 @@ public class Produtos
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
-            throw new erro.ErrorHandle("Falha ao realizar a pesquisa pelo Código");
+            throw new ErrorHandle("Falha ao realizar a pesquisa pelo Código");
         }
         return retorno;
     }
     
-    public static ResultSet PesquisaPeloNome() throws ErrorHandle
+    public ResultSet PesquisaPeloNome() throws ErrorHandle
     {
         retorno = null;
         try
@@ -114,24 +114,24 @@ public class Produtos
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
-            throw new erro.ErrorHandle("Falha ao realizar a pesquisa pelo Nome");
+            throw new ErrorHandle("Falha ao realizar a pesquisa pelo Nome");
         }
         return retorno;
     }
     
-    public static void Inserir() throws ErrorHandle
+    public void Inserir() throws ErrorHandle
     {
         try
         {
-            Banco.Inserir(TABLE_NAME, "produto, cod_unidade, preco_unidade, dataPreco", "'" + produto + "'," + codUnidade + "," + precoUnidade + ", '" + dataPreco + "'");
+            Banco.Inserir(TABLE_NAME, "produto, cod_unidade, preco_unidade, dataPreco", "'" + produto + "'," + codUnidade + "," + precoUnidade);
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
-            throw new erro.ErrorHandle("Falha ao inserir novo Produto");
+            throw new ErrorHandle("Falha ao inserir novo Produto");
         }
     }
     
-    public static void Alterar() throws ErrorHandle
+    public void Alterar() throws ErrorHandle
     {
         try
         {
@@ -139,11 +139,11 @@ public class Produtos
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
-            throw new erro.ErrorHandle("Falha ao alterar Produto");
+            throw new ErrorHandle("Falha ao alterar Produto");
         }
     }
     
-    public static void Apagar() throws ErrorHandle
+    public void Apagar() throws ErrorHandle
     {
         retorno = null;
         try
@@ -151,18 +151,18 @@ public class Produtos
             retorno = Banco.Selecionar("1", "itens", "WHERE codProduto = " + codProduto);
             if (retorno.next())
             {
-                throw new erro.ErrorHandle("Não pode ser realizar a exclusão do produto devido ao fato do mesmo já ter sido vendido.");
+                throw new ErrorHandle("Não pode ser realizar a exclusão do produto devido ao fato do mesmo já ter sido vendido.");
             }
             
             Banco.Apagar(TABLE_NAME, "codProduto = " + codProduto);
         }
         catch (ErrorHandle | ClassNotFoundException | SQLException e)
         {
-            throw new erro.ErrorHandle("Falha ao excluir Produto");
+            throw new ErrorHandle("Falha ao excluir Produto");
         }
     }
     
-    public static ResultSet RelacaoProdutos() throws ErrorHandle
+    public ResultSet RelacaoProdutos() throws ErrorHandle
     {
         retorno = null;
         try
@@ -171,7 +171,7 @@ public class Produtos
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
-            throw new erro.ErrorHandle("Falha ao gerar relação de Produtos");
+            throw new ErrorHandle("Falha ao gerar relação de Produtos");
         }
         return retorno;
     }

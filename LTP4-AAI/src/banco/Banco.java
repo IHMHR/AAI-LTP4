@@ -17,7 +17,7 @@ public abstract class Banco
     private static final String PATH = "D:/PROGRAM FILES/FIREBIRD/LTP4/BDVENDAS.GDB";
     private static final String UID = "SYSDBA";
     private static final String PWD = "masterkey";
-    private static String connectionString = "jdbc:firebirdsql:server1b/3050:D:/PROGRAM FILES/FIREBIRD/LTP4/BDVendas.GDB";
+    private static final String connectionString = "jdbc:firebirdsql:server1b/3050:D:/PROGRAM FILES/FIREBIRD/LTP4/BDVendas.GDB";
     private static Connection conexao;
     private static PreparedStatement comando;
     private static ResultSet retorno;

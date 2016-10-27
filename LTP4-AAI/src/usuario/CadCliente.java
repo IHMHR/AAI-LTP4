@@ -10,11 +10,7 @@ import classes.Uf;
 import erro.ErrorHandle;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 /**
@@ -35,7 +31,7 @@ public class CadCliente extends javax.swing.JFrame {
             DefaultComboBoxModel combo = new DefaultComboBoxModel();
             while (estados.next())
             {
-                combo.addElement(estados.getString(1));
+                combo.addElement(estados.getString(2));
             }
             
             jComboBox1.setModel(combo);
@@ -215,9 +211,37 @@ public class CadCliente extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if(jTextField1.getText().equals("") || jTextField2.getText().equals("") || jTextField3.getText().equals("")
                 || jTextField4.getText().equals("") || jTextField5.getText().equals("") || jTextField6.getText().equals("")
-                || jTextField7.getText().equals("") || jComboBox1.getSelectedIndex() != 0)
+                || jTextField7.getText().equals(""))
         {
             JOptionPane.showMessageDialog(null, "Existem campos não preenchidos");
+        }
+        else if(jTextField1.getText().length() < 3)
+        {
+            JOptionPane.showMessageDialog(null, "Preencher o nome completo");
+        }
+        else if(jTextField2.getText().length() < 3)
+        {
+            JOptionPane.showMessageDialog(null, "Preencher o endereço corretamente");
+        }
+        else if(jTextField3.getText().length() < 3)
+        {
+            JOptionPane.showMessageDialog(null, "Preencher o bairro corretamente");
+        }
+        else if(jTextField4.getText().length() < 3)
+        {
+            JOptionPane.showMessageDialog(null, "Preencher a cidade corretamente");
+        }
+        else if(jTextField5.getText().length() < 8)
+        {
+            JOptionPane.showMessageDialog(null, "Preencher o CEP corretamente");
+        }
+        else if(jTextField6.getText().length() < 8)
+        {
+            JOptionPane.showMessageDialog(null, "Preencher o telefone corretamente");
+        }
+        else if(jTextField7.getText().matches("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])"))
+        {
+            JOptionPane.showMessageDialog(null, "Preencher o e-mail corretamente");
         }
         else
         {
@@ -236,7 +260,11 @@ public class CadCliente extends javax.swing.JFrame {
             }
             catch (ErrorHandle e)
             {
-                JOptionPane.showMessageDialog(null, e.getMessage());
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Erro ao salvar Cliente", HEIGHT);
+            }
+            catch (Exception e)
+            {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Erro ao salvar Cliente", HEIGHT);
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed

@@ -173,7 +173,7 @@ public class Clientes
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
-            throw new erro.ErrorHandle("Falha na pesquisa pelo Código do Cliente");
+            throw new ErrorHandle("Falha na pesquisa pelo Código do Cliente");
         }
         return retorno;
     }
@@ -187,7 +187,7 @@ public class Clientes
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
-            throw new erro.ErrorHandle("Falha na pesquisa pelo Nome do Cliente");
+            throw new ErrorHandle("Falha na pesquisa pelo Nome do Cliente");
         }
         return retorno;
     }
@@ -200,7 +200,7 @@ public class Clientes
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
-            throw new erro.ErrorHandle("Falha ao inserir novo Cliente");
+            throw new ErrorHandle("Falha ao inserir novo Cliente");
         }
     }
     
@@ -212,7 +212,7 @@ public class Clientes
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
-            throw new erro.ErrorHandle("Falha ao alterar Cliente");
+            throw new ErrorHandle("Falha ao alterar Cliente");
         }
     }
     
@@ -224,14 +224,14 @@ public class Clientes
             retorno = Banco.Selecionar("COUNT(1)", "vendas", "WHERE CodCliente = " + codCliente);
             if (retorno.next())
             {
-                throw new erro.ErrorHandle("Não pode ser realizar a exclusão do cliente devido ao fato do mesmo já ter realizado compras.");
+                throw new ErrorHandle("Não pode ser realizar a exclusão do cliente devido ao fato do mesmo já ter realizado compras.");
             }
             
             Banco.Apagar(TABLE_NAME, "CodCliente = " + codCliente);
         }
         catch (ErrorHandle | ClassNotFoundException | SQLException e)
         {
-            throw new erro.ErrorHandle("Falha ao apagar novo Cliente");
+            throw new ErrorHandle("Falha ao apagar novo Cliente");
         }
         finally
         {

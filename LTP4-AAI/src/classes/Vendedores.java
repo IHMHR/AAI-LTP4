@@ -68,7 +68,7 @@ public class Vendedores
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
-            throw new erro.ErrorHandle("Falha na pesquisa pelo Código do Vendedor");
+            throw new ErrorHandle("Falha na pesquisa pelo Código do Vendedor");
         }
         return retorno;
     }
@@ -82,7 +82,7 @@ public class Vendedores
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
-            throw new erro.ErrorHandle("Falha na pesquisa pelo Nome do Vendedor");
+            throw new ErrorHandle("Falha na pesquisa pelo Nome do Vendedor");
         }
         return retorno;
     }
@@ -95,7 +95,7 @@ public class Vendedores
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
-            throw new erro.ErrorHandle("Falha na inserção de novo Vendedor");
+            throw new ErrorHandle("Falha na inserção de novo Vendedor");
         }
     }
     
@@ -107,7 +107,7 @@ public class Vendedores
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
-            throw new erro.ErrorHandle("Falha na alteração de Vendedor");
+            throw new ErrorHandle("Falha na alteração de Vendedor");
         }
     }
     
@@ -119,14 +119,14 @@ public class Vendedores
             retorno = Banco.Selecionar("COUNT(1)", "vendas", "WHERE Cod_Vendedor = " + codVendedor);
             if (retorno.next())
             {
-                throw new erro.ErrorHandle("Não pode ser realizar a exclusão do vendedor devido ao fato do mesmo já ter realizado vendas.");
+                throw new ErrorHandle("Não pode ser realizar a exclusão do vendedor devido ao fato do mesmo já ter realizado vendas.");
             }
             
             Banco.Apagar(TABLE_NAME, "cod_vendedor = " + codVendedor);
         }
         catch (ErrorHandle | ClassNotFoundException | SQLException e)
         {
-            throw new erro.ErrorHandle("Falha na exclusao de Vendedor");
+            throw new ErrorHandle("Falha na exclusao de Vendedor");
         }
         finally
         {

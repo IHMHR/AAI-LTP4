@@ -18,28 +18,28 @@ public class Uf
     /**
      * @return the uf
      */
-    public static String getUf() {
+    public String getUf() {
         return uf;
     }
 
     /**
      * @param aUf the uf to set
      */
-    public static void setUf(String aUf) {
+    public void setUf(String aUf) {
         uf = aUf;
     }
 
     /**
      * @return the estado
      */
-    public static String getEstado() {
+    public String getEstado() {
         return estado;
     }
 
     /**
      * @param aEstado the estado to set
      */
-    public static void setEstado(String aEstado) {
+    public void setEstado(String aEstado) {
         estado = aEstado;
     }
     
