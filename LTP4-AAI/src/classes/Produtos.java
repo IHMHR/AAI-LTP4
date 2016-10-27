@@ -1,7 +1,7 @@
 package classes;
 
 import banco.Banco;
-import erro.ErroHandle;
+import erro.ErrorHandle;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -91,59 +91,59 @@ public class Produtos
     }
     
     
-    public static ResultSet PesquisaPeloCod() throws ErroHandle
+    public static ResultSet PesquisaPeloCod() throws ErrorHandle
     {
         retorno = null;
         try
         {
             retorno = Banco.Selecionar("codProduto, produto, cod_unidade, preco_unidade, dataPreco", TABLE_NAME, "WHERE codProduto = " + codProduto);
         }
-        catch (ErroHandle | ClassNotFoundException e)
+        catch (ErrorHandle | ClassNotFoundException e)
         {
-            throw new erro.ErroHandle("Falha ao realizar a pesquisa pelo Código");
+            throw new erro.ErrorHandle("Falha ao realizar a pesquisa pelo Código");
         }
         return retorno;
     }
     
-    public static ResultSet PesquisaPeloNome() throws ErroHandle
+    public static ResultSet PesquisaPeloNome() throws ErrorHandle
     {
         retorno = null;
         try
         {
             retorno = Banco.Selecionar("codProduto, produto, cod_unidade, preco_unidade, dataPreco", TABLE_NAME, "WHERE produto LIKE '" + produto + "%' ORDER BY produto ASC");
         }
-        catch (ErroHandle | ClassNotFoundException e)
+        catch (ErrorHandle | ClassNotFoundException e)
         {
-            throw new erro.ErroHandle("Falha ao realizar a pesquisa pelo Nome");
+            throw new erro.ErrorHandle("Falha ao realizar a pesquisa pelo Nome");
         }
         return retorno;
     }
     
-    public static void Inserir() throws ErroHandle
+    public static void Inserir() throws ErrorHandle
     {
         try
         {
             Banco.Inserir(TABLE_NAME, "produto, cod_unidade, preco_unidade, dataPreco", "'" + produto + "'," + codUnidade + "," + precoUnidade + ", '" + dataPreco + "'");
         }
-        catch (ErroHandle | ClassNotFoundException e)
+        catch (ErrorHandle | ClassNotFoundException e)
         {
-            throw new erro.ErroHandle("Falha ao inserir novo Produto");
+            throw new erro.ErrorHandle("Falha ao inserir novo Produto");
         }
     }
     
-    public static void Alterar() throws ErroHandle
+    public static void Alterar() throws ErrorHandle
     {
         try
         {
             Banco.Alterar(TABLE_NAME, String.format("produto = '%1$s', cod_unidade = %2$s, preco_unidade = %3$s, dataPreco = '%4$s'", produto, codUnidade, precoUnidade, dataPreco), "codProduto = " + codProduto);
         }
-        catch (ErroHandle | ClassNotFoundException e)
+        catch (ErrorHandle | ClassNotFoundException e)
         {
-            throw new erro.ErroHandle("Falha ao alterar Produto");
+            throw new erro.ErrorHandle("Falha ao alterar Produto");
         }
     }
     
-    public static void Apagar() throws ErroHandle
+    public static void Apagar() throws ErrorHandle
     {
         retorno = null;
         try
@@ -151,27 +151,27 @@ public class Produtos
             retorno = Banco.Selecionar("1", "itens", "WHERE codProduto = " + codProduto);
             if (retorno.next())
             {
-                throw new erro.ErroHandle("Não pode ser realizar a exclusão do produto devido ao fato do mesmo já ter sido vendido.");
+                throw new erro.ErrorHandle("Não pode ser realizar a exclusão do produto devido ao fato do mesmo já ter sido vendido.");
             }
             
             Banco.Apagar(TABLE_NAME, "codProduto = " + codProduto);
         }
-        catch (ErroHandle | ClassNotFoundException | SQLException e)
+        catch (ErrorHandle | ClassNotFoundException | SQLException e)
         {
-            throw new erro.ErroHandle("Falha ao excluir Produto");
+            throw new erro.ErrorHandle("Falha ao excluir Produto");
         }
     }
     
-    public static ResultSet RelacaoProdutos() throws ErroHandle
+    public static ResultSet RelacaoProdutos() throws ErrorHandle
     {
         retorno = null;
         try
         {
             retorno = Banco.Selecionar("produto AS 'Nome do Produto', codproduto AS 'Código', preco_unidade AS 'Preço Unitário', dataPreco AS 'Data de cadastramento'", TABLE_NAME, "ORDER BY produto ASC");
         }
-        catch (ErroHandle | ClassNotFoundException e)
+        catch (ErrorHandle | ClassNotFoundException e)
         {
-            throw new erro.ErroHandle("Falha ao gerar relação de Produtos");
+            throw new erro.ErrorHandle("Falha ao gerar relação de Produtos");
         }
         return retorno;
     }

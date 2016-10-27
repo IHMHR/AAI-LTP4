@@ -1,0 +1,59 @@
+package classes;
+
+import banco.Banco;
+import erro.ErrorHandle;
+import java.sql.ResultSet;
+
+/**
+ * @version 1.0
+ * @author Igor Martinelli
+ */
+public class Uf
+{
+    private static String uf;
+    private static String estado;
+    private static ResultSet retorno;
+    private static final String TABLE_NAME = "Clientes";
+
+    /**
+     * @return the uf
+     */
+    public static String getUf() {
+        return uf;
+    }
+
+    /**
+     * @param aUf the uf to set
+     */
+    public static void setUf(String aUf) {
+        uf = aUf;
+    }
+
+    /**
+     * @return the estado
+     */
+    public static String getEstado() {
+        return estado;
+    }
+
+    /**
+     * @param aEstado the estado to set
+     */
+    public static void setEstado(String aEstado) {
+        estado = aEstado;
+    }
+    
+    public static ResultSet listaEstados() throws ErrorHandle
+    {
+        retorno = null;
+        try
+        {
+            retorno = Banco.Selecionar("uf, estados", TABLE_NAME);
+        }
+        catch (ErrorHandle | ClassNotFoundException e)
+        {
+            throw new ErrorHandle("Falha ao listar estados " + e.getMessage());
+        }
+        return retorno;
+    }
+}

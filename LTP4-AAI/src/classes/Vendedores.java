@@ -1,7 +1,7 @@
 package classes;
 
 import banco.Banco;
-import erro.ErroHandle;
+import erro.ErrorHandle;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -59,59 +59,59 @@ public class Vendedores
         Vendedores.dataCadVendedor = dataCadVendedor;
     }
     
-    public static ResultSet PesquisaPeloCod() throws ErroHandle
+    public ResultSet PesquisaPeloCod() throws ErrorHandle
     {
         retorno = null;
         try
         {
             retorno = Banco.Selecionar("cod_vendedor, nome_vendedor, data_cad_vendedor", TABLE_NAME, "WHERE cod_vendedor = " + codVendedor);
         }
-        catch (ErroHandle | ClassNotFoundException e)
+        catch (ErrorHandle | ClassNotFoundException e)
         {
-            throw new erro.ErroHandle("Falha na pesquisa pelo Código do Vendedor");
+            throw new erro.ErrorHandle("Falha na pesquisa pelo Código do Vendedor");
         }
         return retorno;
     }
     
-    public static ResultSet PesquisaPeloNome() throws ErroHandle
+    public ResultSet PesquisaPeloNome() throws ErrorHandle
     {
         retorno = null;
         try
         {
             retorno = Banco.Selecionar("cod_vendedor, nome_vendedor, data_cad_vendedor", TABLE_NAME, "WHERE cod_vendedor = '" + codVendedor + "' ORDER BY nome_vendedor");
         }
-        catch (ErroHandle | ClassNotFoundException e)
+        catch (ErrorHandle | ClassNotFoundException e)
         {
-            throw new erro.ErroHandle("Falha na pesquisa pelo Nome do Vendedor");
+            throw new erro.ErrorHandle("Falha na pesquisa pelo Nome do Vendedor");
         }
         return retorno;
     }
     
-    public static void Inserir() throws ErroHandle
+    public void Inserir() throws ErrorHandle
     {
         try
         {
             Banco.Inserir(TABLE_NAME, "nome", "'" + nomeVendedor + "'");
         }
-        catch (ErroHandle | ClassNotFoundException e)
+        catch (ErrorHandle | ClassNotFoundException e)
         {
-            throw new erro.ErroHandle("Falha na inserção de novo Vendedor");
+            throw new erro.ErrorHandle("Falha na inserção de novo Vendedor");
         }
     }
     
-    public static void Alterar() throws ErroHandle
+    public void Alterar() throws ErrorHandle
     {
         try
         {
             Banco.Alterar(TABLE_NAME, "nome = '" + nomeVendedor + "'", "cod_vendedor = " + codVendedor);
         }
-        catch (ErroHandle | ClassNotFoundException e)
+        catch (ErrorHandle | ClassNotFoundException e)
         {
-            throw new erro.ErroHandle("Falha na alteração de Vendedor");
+            throw new erro.ErrorHandle("Falha na alteração de Vendedor");
         }
     }
     
-    public static void Apagar() throws ErroHandle
+    public void Apagar() throws ErrorHandle
     {
         retorno = null;
         try
@@ -119,14 +119,14 @@ public class Vendedores
             retorno = Banco.Selecionar("COUNT(1)", "vendas", "WHERE Cod_Vendedor = " + codVendedor);
             if (retorno.next())
             {
-                throw new erro.ErroHandle("Não pode ser realizar a exclusão do vendedor devido ao fato do mesmo já ter realizado vendas.");
+                throw new erro.ErrorHandle("Não pode ser realizar a exclusão do vendedor devido ao fato do mesmo já ter realizado vendas.");
             }
             
             Banco.Apagar(TABLE_NAME, "cod_vendedor = " + codVendedor);
         }
-        catch (ErroHandle | ClassNotFoundException | SQLException e)
+        catch (ErrorHandle | ClassNotFoundException | SQLException e)
         {
-            throw new erro.ErroHandle("Falha na exclusao de Vendedor");
+            throw new erro.ErrorHandle("Falha na exclusao de Vendedor");
         }
         finally
         {

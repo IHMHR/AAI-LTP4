@@ -1,6 +1,6 @@
 package banco;
 
-import erro.ErroHandle;
+import erro.ErrorHandle;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.DriverManager;
@@ -17,32 +17,47 @@ public abstract class Banco
     private static final String PATH = "D:/PROGRAM FILES/FIREBIRD/LTP4/BDVENDAS.GDB";
     private static final String UID = "SYSDBA";
     private static final String PWD = "masterkey";
+    private static String connectionString = "jdbc:firebirdsql:server1b/3050:D:/PROGRAM FILES/FIREBIRD/LTP4/BDVendas.GDB";
     private static Connection conexao;
     private static PreparedStatement comando;
     private static ResultSet retorno;
     
     /**
-     * Metodo para abrir e fechar conexao com o SGBDR
+     * Metodo para abrir a conexao com o SGBDR
      * @throws SQLException
      * @throws ClassNotFoundException
      */
-    private static void AbrirFecharConexao() throws SQLException, ErroHandle, ClassNotFoundException
+    private static void AbrirConexao() throws SQLException, ErrorHandle, ClassNotFoundException
     {
         try
         {
-            if(conexao.isClosed())
-            {
-                Class.forName(DRIVER);
-                conexao = DriverManager.getConnection(PATH, UID, PWD);
-            }
-            else
+            Class.forName(DRIVER);
+            //conexao = DriverManager.getConnection(PATH, UID, PWD);
+            conexao = DriverManager.getConnection(connectionString);
+        }
+        catch (SQLException erro)
+        {
+            throw new erro.ErrorHandle("Falha na realizar a abertura ou fechamento da conexão");
+        }
+    }
+    
+    /**
+     * Metodo para fechar a conexao com o SGBDR
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
+    private static void FecharConexao() throws SQLException, ErrorHandle, ClassNotFoundException
+    {
+        try
+        {
+            if (!conexao.isClosed())
             {
                 conexao.close();
             }
         }
         catch (SQLException erro)
         {
-            throw new erro.ErroHandle("Falha na realizar a abertura ou fechamento da conexão");
+            throw new erro.ErrorHandle("Falha na realizar a abertura ou fechamento da conexão");
         }
     }
     
@@ -50,26 +65,26 @@ public abstract class Banco
      * Metodo para inserir registro
      * @param table
      * @param values
-     * @throws erro.ErroHandle
+     * @throws erro.ErrorHandle
      * @throws java.lang.ClassNotFoundException
      */
-    public static void Inserir(String table, String values) throws ErroHandle, ClassNotFoundException
+    public static void Inserir(String table, String values) throws ErrorHandle, ClassNotFoundException
     {
         if(table.isEmpty() || values.isEmpty())
         {
-            throw new erro.ErroHandle("Falta de informações para realizar inserção dado.");
+            throw new erro.ErrorHandle("Falta de informações para realizar inserção dado.");
         }
 
         try 
         {
             comando = conexao.prepareStatement("INSERT INTO " + table + " VALUES (" + values + ")");
-            AbrirFecharConexao();
+            AbrirConexao();
             comando.execute();
-            AbrirFecharConexao();
+            FecharConexao();
         }
         catch (SQLException erro)
         {
-            throw new erro.ErroHandle("Falha ao realizar a inserção de dados na tabela " + table);
+            throw new erro.ErrorHandle("Falha ao realizar a inserção de dados na tabela " + table);
         }
     }
     
@@ -78,26 +93,26 @@ public abstract class Banco
      * @param table
      * @param fields
      * @param values
-     * @throws erro.ErroHandle
+     * @throws erro.ErrorHandle
      * @throws java.lang.ClassNotFoundException
      */
-    public static void Inserir(String table, String fields, String values) throws ErroHandle, ClassNotFoundException
+    public static void Inserir(String table, String fields, String values) throws ErrorHandle, ClassNotFoundException
     {
         if(table.isEmpty() || values.isEmpty())
         {
-            throw new erro.ErroHandle("Falta de informações para realizar inserção dado.");
+            throw new erro.ErrorHandle("Falta de informações para realizar inserção dado.");
         }
         
         try 
         {
             comando = conexao.prepareStatement("INSERT INTO " + table + " (" + fields + ") VALUES (" + values + ")");
-            AbrirFecharConexao();
+            AbrirConexao();
             comando.execute();
-            AbrirFecharConexao();
+            FecharConexao();
         }
         catch (SQLException erro)
         {
-            throw new erro.ErroHandle("Falha ao realizar a inserção de dados na tabela " + table);
+            throw new erro.ErrorHandle("Falha ao realizar a inserção de dados na tabela " + table);
         }
     }
     
@@ -106,14 +121,14 @@ public abstract class Banco
      * @param table
      * @param values
      * @return ResultSet retorno
-     * @throws erro.ErroHandle
+     * @throws erro.ErrorHandle
      * @throws java.lang.ClassNotFoundException
      */
-    public static ResultSet InserirComRetorno(String table, String values) throws ErroHandle, ClassNotFoundException
+    public static ResultSet InserirComRetorno(String table, String values) throws ErrorHandle, ClassNotFoundException
     {
         if(table.isEmpty() || values.isEmpty())
         {
-            throw new erro.ErroHandle("Falta de informações para realizar inserção dado.");
+            throw new erro.ErrorHandle("Falta de informações para realizar inserção dado.");
         }
         
         retorno = null;
@@ -121,13 +136,13 @@ public abstract class Banco
         try 
         {
             comando = conexao.prepareStatement("INSERT INTO " + table + " VALUES (" + values + ")");
-            AbrirFecharConexao();
+            AbrirConexao();
             retorno = comando.executeQuery();
-            AbrirFecharConexao();
+            FecharConexao();
         }
         catch (SQLException erro)
         {
-            throw new erro.ErroHandle("Falha ao realizar a inserção de dados na tabela " + table);
+            throw new erro.ErrorHandle("Falha ao realizar a inserção de dados na tabela " + table);
         }
         return retorno;
     }
@@ -138,14 +153,14 @@ public abstract class Banco
      * @param fields
      * @param values
      * @return ResultSet retorno
-     * @throws erro.ErroHandle
+     * @throws erro.ErrorHandle
      * @throws java.lang.ClassNotFoundException
      */
-    public ResultSet InserirComRetorno(String table, String fields, String values) throws ErroHandle, ClassNotFoundException
+    public ResultSet InserirComRetorno(String table, String fields, String values) throws ErrorHandle, ClassNotFoundException
     {
         if(table.isEmpty() || values.isEmpty())
         {
-            throw new erro.ErroHandle("Falta de informações para realizar inserção dado.");
+            throw new erro.ErrorHandle("Falta de informações para realizar inserção dado.");
         }
         
         retorno = null;
@@ -153,13 +168,13 @@ public abstract class Banco
         try 
         {
             comando = conexao.prepareStatement("INSERT INTO " + table + " (" + fields + ") VALUES (" + values + ")");
-            AbrirFecharConexao();
+            AbrirConexao();
             retorno = comando.executeQuery();
-            AbrirFecharConexao();
+            FecharConexao();
         }
         catch (SQLException erro)
         {
-            throw new erro.ErroHandle("Falha ao realizar a inserção de dados na tabela " + table);
+            throw new erro.ErrorHandle("Falha ao realizar a inserção de dados na tabela " + table);
         }
         return retorno;
     }
@@ -168,14 +183,14 @@ public abstract class Banco
      * Metodo para apagar registros
      * @param table
      * @param condition
-     * @throws erro.ErroHandle
+     * @throws erro.ErrorHandle
      * @throws java.lang.ClassNotFoundException
      */
-    public static void Apagar(String table, String condition) throws ErroHandle, ClassNotFoundException
+    public static void Apagar(String table, String condition) throws ErrorHandle, ClassNotFoundException
     {
         if(table.isEmpty() || condition.isEmpty())
         {
-            throw new erro.ErroHandle("Falta de informações para apagar dado.");
+            throw new erro.ErrorHandle("Falta de informações para apagar dado.");
         }
         
         retorno = null;
@@ -183,13 +198,13 @@ public abstract class Banco
         try 
         {
             comando = conexao.prepareStatement("DELETE FROM " + table + " WHERE " + condition);
-            AbrirFecharConexao();
+            AbrirConexao();
             comando.execute();
-            AbrirFecharConexao();
+            FecharConexao();
         }
         catch (SQLException erro)
         {
-            throw new erro.ErroHandle("Falha ao realizar a deleção de dados na tabela " + table);
+            throw new erro.ErrorHandle("Falha ao realizar a deleção de dados na tabela " + table);
         }
     }
     
@@ -198,28 +213,28 @@ public abstract class Banco
      * @param columns
      * @param table
      * @return ResultSet retorno
-     * @throws erro.ErroHandle
+     * @throws erro.ErrorHandle
      * @throws java.lang.ClassNotFoundException
      */
-    public static ResultSet Selecionar(String columns, String table) throws ErroHandle, ClassNotFoundException
+    public static ResultSet Selecionar(String columns, String table) throws ErrorHandle, ClassNotFoundException
     {
         if(table.isEmpty() || columns.isEmpty())
         {
-            throw new erro.ErroHandle("Falta de informações para visualizar informações.");
+            throw new erro.ErrorHandle("Falta de informações para visualizar informações.");
         }
         
         retorno = null;
         
         try 
         {
+            AbrirConexao();
             comando = conexao.prepareStatement("SELECT " + columns + " FROM " + table);
-            AbrirFecharConexao();
             retorno = comando.executeQuery();
-            AbrirFecharConexao();
+            FecharConexao();
         }
         catch (SQLException erro)
         {
-            throw new erro.ErroHandle("Falha ao realizar a seleção de dados na tabela " + table);
+            throw new erro.ErrorHandle("Falha ao realizar a seleção de dados na tabela " + table);
         }
         return retorno;
     }
@@ -230,14 +245,14 @@ public abstract class Banco
      * @param table
      * @param condition
      * @return ResultSet retorno
-     * @throws erro.ErroHandle
+     * @throws erro.ErrorHandle
      * @throws java.lang.ClassNotFoundException
      */
-    public static ResultSet Selecionar(String columns, String table, String condition) throws ErroHandle, ClassNotFoundException
+    public static ResultSet Selecionar(String columns, String table, String condition) throws ErrorHandle, ClassNotFoundException
     {
         if(table.isEmpty() || columns.isEmpty() || condition.isEmpty())
         {
-            throw new erro.ErroHandle("Falta de informações para visualizar informações.");
+            throw new erro.ErrorHandle("Falta de informações para visualizar informações.");
         }
         
         retorno = null;
@@ -245,13 +260,13 @@ public abstract class Banco
         try 
         {
             comando = conexao.prepareStatement("SELECT " + columns + " FROM " + table + " " + condition);
-            AbrirFecharConexao();
+            AbrirConexao();
             retorno = comando.executeQuery();
-            AbrirFecharConexao();
+            FecharConexao();
         }
         catch (SQLException erro)
         {
-            throw new erro.ErroHandle("Falha ao realizar a seleção de dados na tabela " + table);
+            throw new erro.ErrorHandle("Falha ao realizar a seleção de dados na tabela " + table);
         }
         return retorno;
     }
@@ -261,26 +276,26 @@ public abstract class Banco
      * @param table
      * @param fieldsNvalues
      * @param condition
-     * @throws erro.ErroHandle
+     * @throws erro.ErrorHandle
      * @throws java.lang.ClassNotFoundException
      */
-    public static void Alterar(String table, String fieldsNvalues, String condition) throws ErroHandle, ClassNotFoundException            
+    public static void Alterar(String table, String fieldsNvalues, String condition) throws ErrorHandle, ClassNotFoundException            
     {
         if(table.isEmpty() || fieldsNvalues.isEmpty() || condition.isEmpty())
         {
-            throw new erro.ErroHandle("Falta de informações para alterar dado.");
+            throw new erro.ErrorHandle("Falta de informações para alterar dado.");
         }
         
         try 
         {
             comando = conexao.prepareStatement("UPDATE " + table + " SET " + fieldsNvalues + " WHERE " + condition);
-            AbrirFecharConexao();
+            AbrirConexao();
             comando.execute();
-            AbrirFecharConexao();
+            FecharConexao();
         }
         catch (SQLException erro)
         {
-            throw new erro.ErroHandle("Falha ao realizar a alteração de dados na tabela " + table);
+            throw new erro.ErrorHandle("Falha ao realizar a alteração de dados na tabela " + table);
         }
     }
 }

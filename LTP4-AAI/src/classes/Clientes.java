@@ -1,7 +1,7 @@
 package classes;
 
 import banco.Banco;
-import erro.ErroHandle;
+import erro.ErrorHandle;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -164,59 +164,59 @@ public class Clientes
         Clientes.dataCadCliente = dataCadCliente;
     }
     
-    public static ResultSet pesquisaPeloCod() throws ErroHandle
+    public static ResultSet pesquisaPeloCod() throws ErrorHandle
     {
         retorno = null;
         try
         {
             retorno = Banco.Selecionar("codcliente, nome, endereço, cidade, estado, cep, telefone, e_mail, data_cad_cliente", "Clientes c INNER JOIN Estados e ON c.uf = e.uf", "WHERE codcliente = " + codCliente);
         }
-        catch (ErroHandle | ClassNotFoundException e)
+        catch (ErrorHandle | ClassNotFoundException e)
         {
-            throw new erro.ErroHandle("Falha na pesquisa pelo Código do Cliente");
+            throw new erro.ErrorHandle("Falha na pesquisa pelo Código do Cliente");
         }
         return retorno;
     }
     
-    public static ResultSet pesquisaPeloNome() throws ErroHandle
+    public static ResultSet pesquisaPeloNome() throws ErrorHandle
     {
         retorno = null;
         try
         {
             retorno = Banco.Selecionar("codcliente, nome, endereço, cidade, estado, cep, telefone, e_mail, data_cad_cliente", "Clientes c INNER JOIN Estados e ON c.uf = e.uf", "WHERE nome LIKE '" + nome + "%' ORDER BY nome ASC");
         }
-        catch (ErroHandle | ClassNotFoundException e)
+        catch (ErrorHandle | ClassNotFoundException e)
         {
-            throw new erro.ErroHandle("Falha na pesquisa pelo Nome do Cliente");
+            throw new erro.ErrorHandle("Falha na pesquisa pelo Nome do Cliente");
         }
         return retorno;
     }
     
-    public static void Inserir() throws ErroHandle
+    public void Inserir() throws ErrorHandle
     {
         try
         {
             Banco.Inserir(TABLE_NAME, "nome, endereco, bairro, cidade, uf, cep, telefone, e_mail", "'" + nome + "','" + endereco + "','" + bairro + "','" + cidade + "','" + uf + "','" + cep + "','" + telefone + "','" + email + "'");
         }
-        catch (ErroHandle | ClassNotFoundException e)
+        catch (ErrorHandle | ClassNotFoundException e)
         {
-            throw new erro.ErroHandle("Falha ao inserir novo Cliente");
+            throw new erro.ErrorHandle("Falha ao inserir novo Cliente");
         }
     }
     
-    public static void Alterar() throws ErroHandle
+    public void Alterar() throws ErrorHandle
     {
         try
         {
             Banco.Alterar(TABLE_NAME, String.format("nome = '%1$s', endereco = '%2$s', bairro = '%3$s', cidade = '%4$s', uf = '%5$s', cep = '%6$s', telefone = '%7$s', e_mail = '%8$s'", nome, endereco, bairro, cidade, uf, cep, telefone, email), "codcliente = " + codCliente);
         }
-        catch (ErroHandle | ClassNotFoundException e)
+        catch (ErrorHandle | ClassNotFoundException e)
         {
-            throw new erro.ErroHandle("Falha ao alterar Cliente");
+            throw new erro.ErrorHandle("Falha ao alterar Cliente");
         }
     }
     
-    public static void Apagar() throws ErroHandle
+    public void Apagar() throws ErrorHandle
     {
         retorno = null;
         try
@@ -224,14 +224,14 @@ public class Clientes
             retorno = Banco.Selecionar("COUNT(1)", "vendas", "WHERE CodCliente = " + codCliente);
             if (retorno.next())
             {
-                throw new erro.ErroHandle("Não pode ser realizar a exclusão do cliente devido ao fato do mesmo já ter realizado compras.");
+                throw new erro.ErrorHandle("Não pode ser realizar a exclusão do cliente devido ao fato do mesmo já ter realizado compras.");
             }
             
             Banco.Apagar(TABLE_NAME, "CodCliente = " + codCliente);
         }
-        catch (ErroHandle | ClassNotFoundException | SQLException e)
+        catch (ErrorHandle | ClassNotFoundException | SQLException e)
         {
-            throw new erro.ErroHandle("Falha ao apagar novo Cliente");
+            throw new erro.ErrorHandle("Falha ao apagar novo Cliente");
         }
         finally
         {
@@ -239,7 +239,7 @@ public class Clientes
         }
     }
     
-    public static ResultSet EstatisticaVendasCliente()
+    public ResultSet EstatisticaVendasCliente()
     {
         retorno = null;
         try
