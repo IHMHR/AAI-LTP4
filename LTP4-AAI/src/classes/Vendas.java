@@ -88,21 +88,6 @@ public class Vendas
         return retorno;
     }
     
-    public ResultSet PesquisaPeloNome() throws ErrorHandle
-    {
-        retorno = null;
-        try
-        {
-            // TODO
-            //retorno = Banco.Selecionar("v.codVenda, c.nome, ven.nome_vendedor, v.data_venda", TABLE_NAME + " v INNER JOIN vendedores ven ON v.cod_vendedor = ven.cod_vendedor INNER JOIN cliente c INNER JOIN c.codCliente = codCliente", "WHERE produto");
-        }
-        catch (Exception e)
-        {
-            throw new ErrorHandle("Falha na pesquisa pelo Nome");
-        }
-        return retorno;
-    }
-    
     public void Inserir() throws ErrorHandle
     {
         try
