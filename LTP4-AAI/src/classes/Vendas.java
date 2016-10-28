@@ -102,6 +102,21 @@ public class Vendas
         }
     }
     
+    public ResultSet InserirComRetorno() throws ErrorHandle
+    {
+        retorno = null;
+        try
+        {
+            dataVenda = new Date(Calendar.getInstance().getTime().getTime());
+            retorno = Banco.InserirComRetorno(TABLE_NAME, "cod_vendedor, codCliente, data_venda", codVendedor + "," + codCliente + "'" + dataVenda + "'");
+        }
+        catch (ErrorHandle | ClassNotFoundException e)
+        {
+            throw new ErrorHandle("Falha na inserção de nova Venda");
+        }
+        return retorno;
+    }
+    
     public void Alterar() throws ErrorHandle
     {
         try

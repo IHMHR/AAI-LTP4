@@ -159,7 +159,7 @@ public abstract class Banco
      * @throws erro.ErrorHandle
      * @throws java.lang.ClassNotFoundException
      */
-    public ResultSet InserirComRetorno(String table, String fields, String values) throws ErrorHandle, ClassNotFoundException
+    public static ResultSet InserirComRetorno(String table, String fields, String values) throws ErrorHandle, ClassNotFoundException
     {
         if(table.isEmpty() || values.isEmpty())
         {
