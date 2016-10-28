@@ -50,6 +50,7 @@ public class PesqVenda extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 16)); // NOI18N
         jLabel1.setText("Pesquisa de Vendas");
 
         jLabel2.setText("Informe o código da venda");

@@ -67,12 +67,14 @@ public class CadVenda extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 16)); // NOI18N
         jLabel2.setText("Cadastro de Vendas");
 
         jLabel1.setText("Vendedor");
 
         jLabel3.setText("Cliente");
 
+        jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 16)); // NOI18N
         jLabel4.setText("Produtos");
 
         jLabel5.setText("Produto");
@@ -86,6 +88,7 @@ public class CadVenda extends javax.swing.JFrame {
             }
         });
 
+        jLabel7.setFont(new java.awt.Font("Ubuntu", 1, 16)); // NOI18N
         jLabel7.setText("Carrinho");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(

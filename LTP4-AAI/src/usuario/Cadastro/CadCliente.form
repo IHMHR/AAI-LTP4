@@ -141,6 +141,9 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Ubuntu" size="16" style="1"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Cadastro de Clientes"/>
       </Properties>
     </Component>

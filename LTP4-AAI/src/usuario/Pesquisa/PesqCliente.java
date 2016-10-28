@@ -54,6 +54,7 @@ public class PesqCliente extends javax.swing.JFrame
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 16)); // NOI18N
         jLabel1.setText("Pesquisa de Cliente");
 
         jLabel2.setText("jLabel2");

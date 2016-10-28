@@ -80,6 +80,7 @@ public class CadCliente extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 16)); // NOI18N
         jLabel2.setText("Cadastro de Clientes");
 
         jLabel3.setText("Nome");
