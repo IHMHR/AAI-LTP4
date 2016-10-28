@@ -1,11 +1,13 @@
 package banco;
 
 import erro.ErrorHandle;
+import java.awt.datatransfer.Clipboard;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import org.firebirdsql.jdbc.FBDriver;
 
 /**
  * @version 1.0
@@ -31,13 +33,16 @@ public abstract class Banco
     {
         try
         {
-            Class.forName(DRIVER);
+            DriverManager.registerDriver(new FBDriver());
+            conexao = DriverManager.getConnection(DRIVER + PATH, UID, PWD);
+
+            /*Class.forName(DRIVER);
             //conexao = DriverManager.getConnection(PATH, UID, PWD);
-            conexao = DriverManager.getConnection(connectionString);
+            conexao = DriverManager.getConnection(connectionString);*/
         }
         catch (SQLException erro)
         {
-            throw new erro.ErrorHandle("Falha na realizar a abertura ou fechamento da conexão");
+            throw new erro.ErrorHandle("Falha na realizar a abertura da conexão");
         }
     }
     
@@ -77,10 +82,9 @@ public abstract class Banco
 
         try 
         {
-            comando = conexao.prepareStatement("INSERT INTO " + table + " VALUES (" + values + ")");
             AbrirConexao();
+            comando = conexao.prepareStatement("INSERT INTO " + table + " VALUES (" + values + ")");
             comando.execute();
-            FecharConexao();
         }
         catch (SQLException erro)
         {
@@ -105,10 +109,10 @@ public abstract class Banco
         
         try 
         {
-            comando = conexao.prepareStatement("INSERT INTO " + table + " (" + fields + ") VALUES (" + values + ")");
             AbrirConexao();
+            System.out.println("INSERT INTO " + table + " (" + fields + ") VALUES (" + values + ")");
+            comando = conexao.prepareStatement("INSERT INTO " + table + " (" + fields + ") VALUES (" + values + ")");
             comando.execute();
-            FecharConexao();
         }
         catch (SQLException erro)
         {
@@ -135,10 +139,9 @@ public abstract class Banco
         
         try 
         {
-            comando = conexao.prepareStatement("INSERT INTO " + table + " VALUES (" + values + ")");
             AbrirConexao();
+            comando = conexao.prepareStatement("INSERT INTO " + table + " VALUES (" + values + ")");
             retorno = comando.executeQuery();
-            FecharConexao();
         }
         catch (SQLException erro)
         {
@@ -167,10 +170,9 @@ public abstract class Banco
         
         try 
         {
-            comando = conexao.prepareStatement("INSERT INTO " + table + " (" + fields + ") VALUES (" + values + ")");
             AbrirConexao();
+            comando = conexao.prepareStatement("INSERT INTO " + table + " (" + fields + ") VALUES (" + values + ")");
             retorno = comando.executeQuery();
-            FecharConexao();
         }
         catch (SQLException erro)
         {
@@ -197,10 +199,9 @@ public abstract class Banco
         
         try 
         {
-            comando = conexao.prepareStatement("DELETE FROM " + table + " WHERE " + condition);
             AbrirConexao();
+            comando = conexao.prepareStatement("DELETE FROM " + table + " WHERE " + condition);
             comando.execute();
-            FecharConexao();
         }
         catch (SQLException erro)
         {
@@ -228,13 +229,13 @@ public abstract class Banco
         try 
         {
             AbrirConexao();
+            System.out.println("SELECT " + columns + " FROM " + table);
             comando = conexao.prepareStatement("SELECT " + columns + " FROM " + table);
             retorno = comando.executeQuery();
-            FecharConexao();
         }
         catch (SQLException erro)
         {
-            throw new erro.ErrorHandle("Falha ao realizar a seleção de dados na tabela " + table);
+            throw new erro.ErrorHandle("Falha ao realizar a seleção de dados na tabela " + table + "\n" + erro);
         }
         return retorno;
     }
@@ -257,12 +258,11 @@ public abstract class Banco
         
         retorno = null;
         
-        try 
+        try
         {
-            comando = conexao.prepareStatement("SELECT " + columns + " FROM " + table + " " + condition);
             AbrirConexao();
+            comando = conexao.prepareStatement("SELECT " + columns + " FROM " + table + " " + condition);
             retorno = comando.executeQuery();
-            FecharConexao();
         }
         catch (SQLException erro)
         {
@@ -288,10 +288,9 @@ public abstract class Banco
         
         try 
         {
-            comando = conexao.prepareStatement("UPDATE " + table + " SET " + fieldsNvalues + " WHERE " + condition);
             AbrirConexao();
+            comando = conexao.prepareStatement("UPDATE " + table + " SET " + fieldsNvalues + " WHERE " + condition);
             comando.execute();
-            FecharConexao();
         }
         catch (SQLException erro)
         {

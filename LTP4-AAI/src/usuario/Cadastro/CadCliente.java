@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package usuario;
+package usuario.Cadastro;
 
 import classes.Clientes;
 import classes.Uf;
@@ -12,25 +7,30 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import usuario.MainPage;
 
 /**
- *
- * @author n225519971
+ * @version 1.0
+ * @author Igor Martinelli
  */
 public class CadCliente extends javax.swing.JFrame {
 
     /**
      * Creates new form CadCliente
      */
-    public CadCliente() {
+    public CadCliente()
+    {
         initComponents();
+        jComboBox2.setVisible(false);
         
         try
         {
             ResultSet estados = Uf.listaEstados();
             DefaultComboBoxModel combo = new DefaultComboBoxModel();
+            DefaultComboBoxModel combo2 = new DefaultComboBoxModel();
             while (estados.next())
             {
+                combo2.addElement(estados.getString(1));
                 combo.addElement(estados.getString(2));
             }
             
@@ -70,6 +70,7 @@ public class CadCliente extends javax.swing.JFrame {
         jTextField5 = new javax.swing.JTextField();
         jTextField6 = new javax.swing.JTextField();
         jTextField7 = new javax.swing.JTextField();
+        jComboBox2 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Clientes");
@@ -110,6 +111,9 @@ public class CadCliente extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
+
+        jComboBox2.setEnabled(false);
+        jComboBox2.setFocusable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -152,6 +156,8 @@ public class CadCliente extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(55, 55, 55)
                 .addComponent(jButton2)
                 .addGap(40, 40, 40))
         );
@@ -195,7 +201,8 @@ public class CadCliente extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -209,6 +216,7 @@ public class CadCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        JOptionPane.showMessageDialog(null, String.valueOf(jComboBox1.getSelectedIndex()));
         if(jTextField1.getText().equals("") || jTextField2.getText().equals("") || jTextField3.getText().equals("")
                 || jTextField4.getText().equals("") || jTextField5.getText().equals("") || jTextField6.getText().equals("")
                 || jTextField7.getText().equals(""))
@@ -239,7 +247,7 @@ public class CadCliente extends javax.swing.JFrame {
         {
             JOptionPane.showMessageDialog(null, "Preencher o telefone corretamente");
         }
-        else if(jTextField7.getText().matches("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])"))
+        else if(!jTextField7.getText().matches("[A-Za-z0-9_]{1,}([.][A-Za-z0-9_]+){0,}+@[a-zA-Z0-9]{2,}[.][a-zA-Z0-9]{2,}([.][a-zA-Z0-9]{2,})?"))
         {
             JOptionPane.showMessageDialog(null, "Preencher o e-mail corretamente");
         }
@@ -255,7 +263,7 @@ public class CadCliente extends javax.swing.JFrame {
                 cli.setEndereco(jTextField2.getText());
                 cli.setNome(jTextField1.getText());
                 cli.setTelefone(jTextField6.getText());
-                cli.setUf(jComboBox1.getSelectedItem().toString());
+                cli.setUf(String.valueOf(jComboBox1.getSelectedIndex()));
                 cli.Inserir();
             }
             catch (ErrorHandle e)
@@ -303,6 +311,7 @@ public class CadCliente extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new CadCliente().setVisible(true);
             }
@@ -313,6 +322,7 @@ public class CadCliente extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

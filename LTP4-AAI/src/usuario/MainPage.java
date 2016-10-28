@@ -1,16 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package usuario;
 
-import javax.swing.ImageIcon;
+import usuario.Pesquisa.PesqCliente;
+import usuario.Pesquisa.PesqProduto;
+import usuario.Cadastro.CadCliente;
+import usuario.Cadastro.CadVendedor;
+import usuario.Cadastro.CadProduto;
+import usuario.Cadastro.CadVenda;
 import javax.swing.JOptionPane;
+import usuario.Modificacao.AltCliente;
 
 /**
- *
- * @author n225519971
+ * @version 1.0
+ * @author Igor Martinelli
  */
 public class MainPage extends javax.swing.JFrame {
 
@@ -30,7 +31,6 @@ public class MainPage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel(new ImageIcon("../../terceiros/VendasExternas-Controle-de-clientes-e-vendas-900x675.jpg"));
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -70,8 +70,6 @@ public class MainPage extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText(null);
-
         jMenu1.setText("Cliente");
 
         jMenuItem1.setText("Cadastrar");
@@ -85,14 +83,29 @@ public class MainPage extends javax.swing.JFrame {
         jMenu6.setText("Pesquisa");
 
         jMenuItem18.setText("Pelo Código");
+        jMenuItem18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem18ActionPerformed(evt);
+            }
+        });
         jMenu6.add(jMenuItem18);
 
         jMenuItem19.setText("Pelo Nome");
+        jMenuItem19.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem19ActionPerformed(evt);
+            }
+        });
         jMenu6.add(jMenuItem19);
 
         jMenu1.add(jMenu6);
 
         jMenuItem3.setText("Alteração");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem3);
 
         jMenuItem4.setText("Relatório");
@@ -113,9 +126,19 @@ public class MainPage extends javax.swing.JFrame {
         jMenu7.setText("Pesquisa");
 
         jMenuItem20.setText("Pelo Código");
+        jMenuItem20.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem20ActionPerformed(evt);
+            }
+        });
         jMenu7.add(jMenuItem20);
 
         jMenuItem21.setText("Pelo Nome");
+        jMenuItem21.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem21ActionPerformed(evt);
+            }
+        });
         jMenu7.add(jMenuItem21);
 
         jMenu2.add(jMenu7);
@@ -199,11 +222,11 @@ public class MainPage extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+            .addGap(0, 800, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)
+            .addGap(0, 411, Short.MAX_VALUE)
         );
 
         pack();
@@ -237,6 +260,31 @@ public class MainPage extends javax.swing.JFrame {
     private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
         JOptionPane.showMessageDialog(null, "Autor: Igor Martinelli Ramos\nRA: 225519971\nAno/Período: 2016/2\nProfessor: Erix Morato", "Trabalho Auto Instrucional de LTP 4", 1);        // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem17ActionPerformed
+
+    private void jMenuItem18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem18ActionPerformed
+        this.dispose();
+        new PesqCliente(1).setVisible(true);
+    }//GEN-LAST:event_jMenuItem18ActionPerformed
+
+    private void jMenuItem19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem19ActionPerformed
+        this.dispose();
+        new PesqCliente(2).setVisible(true);
+    }//GEN-LAST:event_jMenuItem19ActionPerformed
+
+    private void jMenuItem20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem20ActionPerformed
+        this.dispose();
+        new PesqProduto(1).setVisible(true);
+    }//GEN-LAST:event_jMenuItem20ActionPerformed
+
+    private void jMenuItem21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem21ActionPerformed
+        this.dispose();
+        new PesqProduto(2).setVisible(true);
+    }//GEN-LAST:event_jMenuItem21ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        this.dispose();
+        new AltCliente().setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -274,7 +322,6 @@ public class MainPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

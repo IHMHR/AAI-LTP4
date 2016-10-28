@@ -4,6 +4,7 @@ import banco.Banco;
 import erro.ErrorHandle;
 import java.sql.Date;
 import java.sql.ResultSet;
+import java.util.Calendar;
 
 /**
  * @version 1.0
@@ -92,7 +93,8 @@ public class Vendas
     {
         try
         {
-            Banco.Inserir(TABLE_NAME, "cod_vendedor, codCliente", codVendedor + "," + codCliente);
+            dataVenda = new Date(Calendar.getInstance().getTime().getTime());
+            Banco.Inserir(TABLE_NAME, "cod_vendedor, codCliente, data_venda", codVendedor + "," + codCliente + "'" + dataVenda + "'");
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {

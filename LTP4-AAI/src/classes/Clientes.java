@@ -2,8 +2,10 @@ package classes;
 
 import banco.Banco;
 import erro.ErrorHandle;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
 
 /**
  * @version 1.0
@@ -20,7 +22,7 @@ public class Clientes
     private static String cep;
     private static String telefone;
     private static String email;
-    private static String dataCadCliente;
+    private static Date dataCadCliente;
     private static ResultSet retorno;
     private static final String TABLE_NAME = "Clientes";
     
@@ -153,18 +155,18 @@ public class Clientes
     /**
      * @return the dataCadCliente
      */
-    public String getDataCadCliente() {
+    public Date getDataCadCliente() {
         return dataCadCliente;
     }
 
     /**
      * @param dataCadCliente the dataCadCliente to set
      */
-    public void setDataCadCliente(String dataCadCliente) {
+    public void setDataCadCliente(Date dataCadCliente) {
         Clientes.dataCadCliente = dataCadCliente;
     }
     
-    public static ResultSet pesquisaPeloCod() throws ErrorHandle
+    public ResultSet pesquisaPeloCod() throws ErrorHandle
     {
         retorno = null;
         try
@@ -178,7 +180,7 @@ public class Clientes
         return retorno;
     }
     
-    public static ResultSet pesquisaPeloNome() throws ErrorHandle
+    public ResultSet pesquisaPeloNome() throws ErrorHandle
     {
         retorno = null;
         try
@@ -196,7 +198,8 @@ public class Clientes
     {
         try
         {
-            Banco.Inserir(TABLE_NAME, "nome, endereco, bairro, cidade, uf, cep, telefone, e_mail", "'" + nome + "','" + endereco + "','" + bairro + "','" + cidade + "','" + uf + "','" + cep + "','" + telefone + "','" + email + "'");
+            dataCadCliente = new Date(Calendar.getInstance().getTime().getTime());
+            Banco.Inserir(TABLE_NAME, "nome, endereco, bairro, cidade, uf, cep, telefone, e_mail, data_cad_cliente", "'" + nome + "','" + endereco + "','" + bairro + "','" + cidade + "','" + uf + "','" + cep + "','" + telefone + "','" + email + "', '" + dataCadCliente + "'");
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
@@ -249,6 +252,20 @@ public class Clientes
         catch (Exception e)
         {
             // TO-DO
+        }
+        return retorno;
+    }
+    
+    public static ResultSet listaClientes() throws ErrorHandle
+    {
+        retorno = null;
+        try
+        {
+            retorno = Banco.Selecionar("codcliente, nome, endereço, cidade, estado, cep, telefone, e_mail, data_cad_cliente", "Clientes c INNER JOIN Estados e ON c.uf = e.uf", "ORDER BY nome ASC");
+        }
+        catch (ErrorHandle | ClassNotFoundException e)
+        {
+            throw new ErrorHandle("Falha ao listar Clientes");
         }
         return retorno;
     }

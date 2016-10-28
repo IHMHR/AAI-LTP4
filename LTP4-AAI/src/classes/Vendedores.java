@@ -2,8 +2,10 @@ package classes;
 
 import banco.Banco;
 import erro.ErrorHandle;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
 
 /**
  * @version 1.0
@@ -13,7 +15,7 @@ public class Vendedores
 {
     private static int codVendedor;
     private static String nomeVendedor;
-    private static String dataCadVendedor;
+    private static Date dataCadVendedor;
     private static ResultSet retorno;
     private static final String TABLE_NAME = "Vendedores";
 
@@ -48,14 +50,14 @@ public class Vendedores
     /**
      * @return the dataCadVendedor
      */
-    public String getDataCadVendedor() {
+    public Date getDataCadVendedor() {
         return dataCadVendedor;
     }
 
     /**
      * @param dataCadVendedor the dataCadVendedor to set
      */
-    public void setDataCadVendedor(String dataCadVendedor) {
+    public void setDataCadVendedor(Date dataCadVendedor) {
         Vendedores.dataCadVendedor = dataCadVendedor;
     }
     
@@ -91,7 +93,8 @@ public class Vendedores
     {
         try
         {
-            Banco.Inserir(TABLE_NAME, "nome", "'" + nomeVendedor + "'");
+            dataCadVendedor = new Date(Calendar.getInstance().getTime().getTime());
+            Banco.Inserir(TABLE_NAME, "nome_vendedor, data_cad_vendedor", "'" + nomeVendedor + "', '" + dataCadVendedor + "'");
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {

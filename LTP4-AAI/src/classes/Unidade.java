@@ -13,7 +13,7 @@ public class Unidade
     private static int codUnidade;
     private static String unidade;
     private static ResultSet retorno;
-    private static final String TABLE_NAME = "unidade";
+    private static final String TABLE_NAME = "unidades";
 
     /**
      * @return the codUnidade

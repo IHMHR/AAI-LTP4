@@ -13,7 +13,7 @@ public class Uf
     private static String uf;
     private static String estado;
     private static ResultSet retorno;
-    private static final String TABLE_NAME = "Clientes";
+    private static final String TABLE_NAME = "estados";
 
     /**
      * @return the uf
@@ -48,7 +48,7 @@ public class Uf
         retorno = null;
         try
         {
-            retorno = Banco.Selecionar("uf, estados", TABLE_NAME);
+            retorno = Banco.Selecionar("CONCAT(uf, ' - ', estado) AS uf, estado", TABLE_NAME);
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {

@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package usuario;
+package usuario.Cadastro;
 
 import classes.Produtos;
 import classes.Unidade;
@@ -12,10 +7,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import usuario.MainPage;
 
 /**
- *
- * @author jannsen
+ * @version 1.0
+ * @author Igor Martinelli
  */
 public class CadProduto extends javax.swing.JFrame {
 
@@ -169,6 +165,10 @@ public class CadProduto extends javax.swing.JFrame {
                 pro.setPrecoUnidade(Double.parseDouble(jTextField3.getText().trim().replace(",", ".")));
                 pro.setProduto(jTextField1.getText());
                 pro.Inserir();
+                JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
+                jComboBox1.setSelectedIndex(1);
+                jTextField3.setText("");
+                jTextField1.setText("");
             }
             catch (ErrorHandle | NumberFormatException e)
             {
