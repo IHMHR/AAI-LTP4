@@ -177,4 +177,18 @@ public class Produtos
         }
         return retorno;
     }
+    
+    public static ResultSet listaProdutos() throws ErrorHandle
+    {
+        retorno = null;
+        try
+        {
+            retorno = Banco.Selecionar("codProduto, produto, cod_unidade, preco_unidade, dataPreco", TABLE_NAME, "ORDER BY produto ASC");
+        }
+        catch (ErrorHandle | ClassNotFoundException e)
+        {
+            throw new ErrorHandle("Falha ao listar Produtos");
+        }
+        return retorno;
+    }
 }

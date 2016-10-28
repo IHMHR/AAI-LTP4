@@ -8,6 +8,8 @@ import usuario.Cadastro.CadProduto;
 import usuario.Cadastro.CadVenda;
 import javax.swing.JOptionPane;
 import usuario.Modificacao.AltCliente;
+import usuario.Modificacao.AltProduto;
+import usuario.Modificacao.AltVendedor;
 
 /**
  * @version 1.0
@@ -144,6 +146,11 @@ public class MainPage extends javax.swing.JFrame {
         jMenu2.add(jMenu7);
 
         jMenuItem7.setText("Alteração");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem7);
 
         jMenuItem8.setText("Relatório");
@@ -172,6 +179,11 @@ public class MainPage extends javax.swing.JFrame {
         jMenu3.add(jMenu8);
 
         jMenuItem11.setText("Alteração");
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem11);
 
         jMenuItem14.setText("Relatório");
@@ -286,6 +298,16 @@ public class MainPage extends javax.swing.JFrame {
         new AltCliente().setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        this.dispose();
+        new AltProduto().setVisible(true);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+        this.dispose();
+        new AltVendedor().setVisible(true);
+    }//GEN-LAST:event_jMenuItem11ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -315,6 +337,7 @@ public class MainPage extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new MainPage().setVisible(true);
             }

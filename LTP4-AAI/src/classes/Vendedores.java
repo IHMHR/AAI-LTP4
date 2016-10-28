@@ -136,4 +136,18 @@ public class Vendedores
             retorno = null;
         }
     }
+    
+    public static ResultSet listaVendedores() throws ErrorHandle
+    {
+        retorno = null;
+        try
+        {
+            retorno = Banco.Selecionar("cod_vendedor, nome_vendedor, data_cad_vendedor", TABLE_NAME, "ORDER BY nome_vendedor");
+        }
+        catch (ErrorHandle | ClassNotFoundException e)
+        {
+            throw new ErrorHandle("Falha na pesquisa pelo Nome do Vendedor");
+        }
+        return retorno;
+    }
 }
