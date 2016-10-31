@@ -122,6 +122,11 @@ public class AltVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        fillTable();
+    }//GEN-LAST:event_formWindowOpened
+
+    private void fillTable()
+    {
         try
         {
             ResultSet res = Vendedores.listaVendedores();
@@ -131,8 +136,8 @@ public class AltVendedor extends javax.swing.JFrame {
         {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Falha na pesquisa", 0);
         }
-    }//GEN-LAST:event_formWindowOpened
-
+    }
+    
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         this.dispose();
         new MainPage().setVisible(true);
@@ -142,13 +147,15 @@ public class AltVendedor extends javax.swing.JFrame {
         if(jTable1.getSelectedRow() >= 0)
         {
             //String codigo = (jTable1.getModel().getValueAt(row, 0).toString());
-            if(JOptionPane.showConfirmDialog(null, "Deseja confirmar a exclusao ?", "Excluir Cliente", 0) == 0)
+            if(JOptionPane.showConfirmDialog(null, "Deseja confirmar a exclusao ?", "Excluir Vendedor", 0) == 0)
             {
                 try
                 {
                     Vendedores ven = new Vendedores();
                     ven.setCodVendedor(Integer.parseInt(jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 0).toString()));
                     ven.Apagar();
+                    JOptionPane.showMessageDialog(null, "Vendedor excluido com sucesso !", "Excluido com sucesso", 0);
+                    fillTable();
                 }
                 catch (ErrorHandle | NumberFormatException e)
                 {

@@ -120,6 +120,11 @@ public class AltCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        fillTable();
+    }//GEN-LAST:event_formWindowOpened
+
+    private void fillTable()
+    {
         try
         {
             ResultSet res = Clientes.listaClientes();
@@ -129,8 +134,8 @@ public class AltCliente extends javax.swing.JFrame {
         {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Falha na pesquisa", 0);
         }
-    }//GEN-LAST:event_formWindowOpened
-
+    }
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if(jTable1.getSelectedRow() >= 0)
         {
@@ -151,6 +156,8 @@ public class AltCliente extends javax.swing.JFrame {
                     Clientes c = new Clientes();
                     c.setCodCliente(Integer.parseInt(jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 0).toString()));
                     c.Apagar();
+                    JOptionPane.showMessageDialog(null, "Cliente excluido com sucesso !", "Excluido com sucesso", 3);
+                    fillTable();
                 }
                 catch (ErrorHandle | NumberFormatException e)
                 {

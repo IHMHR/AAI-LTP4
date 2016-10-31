@@ -5,10 +5,12 @@
  */
 package usuario.Modificacao;
 
-import classes.Produtos;
+import classes.Vendas;
 import erro.ErrorHandle;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import usuario.MainPage;
 import utilitarios.LtpUtil;
@@ -17,12 +19,12 @@ import utilitarios.LtpUtil;
  *
  * @author jannsen
  */
-public class AltProduto extends javax.swing.JFrame {
+public class AltVenda extends javax.swing.JFrame {
 
     /**
-     * Creates new form AltProduto
+     * Creates new form AltVenda
      */
-    public AltProduto() {
+    public AltVenda() {
         initComponents();
     }
 
@@ -35,14 +37,14 @@ public class AltProduto extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Alteração de Produto");
+        setTitle("Alteração de venda");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -51,19 +53,6 @@ public class AltProduto extends javax.swing.JFrame {
                 formWindowClosing(evt);
             }
         });
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
-
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("Alterar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -86,25 +75,40 @@ public class AltProduto extends javax.swing.JFrame {
             }
         });
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton1)
-                .addGap(172, 172, 172)
+                .addGap(160, 160, 160)
                 .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 185, Short.MAX_VALUE)
                 .addComponent(jButton3)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 536, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
@@ -116,45 +120,31 @@ public class AltProduto extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        this.dispose();
-        new MainPage().setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
-
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         this.dispose();
         new MainPage().setVisible(true);
     }//GEN-LAST:event_formWindowClosing
 
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        fillTable();
-    }//GEN-LAST:event_formWindowOpened
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if(jTable1.getSelectedRow() >= 0)
+        {
+            /*
+            HABILITAR QUE SEJA EDITADO
+            */
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void fillTable()
-    {
-        try
-        {
-            ResultSet res = Produtos.listaProdutos();
-            LtpUtil.loadFormatJTable(jTable1, res, true);
-        }
-        catch (ErrorHandle | SQLException e)
-        {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Falha na pesquisa", 0);
-        }
-    }
-    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if(jTable1.getSelectedRow() >= 0)
         {
-            //String codigo = (jTable1.getModel().getValueAt(row, 0).toString());
-            if(JOptionPane.showConfirmDialog(null, "Deseja confirmar a exclusao ?", "Excluir Cliente", 0) == 0)
+            if(JOptionPane.showConfirmDialog(null, "Deseja confirmar a exclusao ?", "Excluir Venda", 0) == 0)
             {
                 try
                 {
-                    Produtos pro = new Produtos();
-                    pro.setCodProduto(Integer.parseInt(jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 0).toString()));
-                    pro.Apagar();
-                    JOptionPane.showMessageDialog(null, "Produto excluido com sucesso !", "Excluido com sucesso", 3);
+                    Vendas v = new Vendas();
+                    v.setCodVenda(Integer.parseInt(jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 0).toString()));
+                    v.Apagar();
+                    JOptionPane.showMessageDialog(null, "Venda excluida com sucesso !", "Excluido com sucesso", 0);
                     fillTable();
                 }
                 catch (ErrorHandle | NumberFormatException e)
@@ -165,14 +155,27 @@ public class AltProduto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(jTable1.getSelectedRow() >= 0)
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        this.dispose();
+        new MainPage().setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        fillTable();
+    }//GEN-LAST:event_formWindowOpened
+
+    private void fillTable()
+    {
+        try
         {
-            /*
-                HABILITAR QUE SEJA EDITADO
-            */
+            ResultSet res = Vendas.listaVendas();
+            LtpUtil.loadFormatJTable(jTable1, res, true);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+        catch (ErrorHandle | SQLException e)
+        {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Falha na pesquisa", 0);
+        }
+    }
     
     /**
      * @param args the command line arguments
@@ -191,13 +194,13 @@ public class AltProduto extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AltProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AltVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AltProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AltVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AltProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AltVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AltProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AltVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -205,7 +208,7 @@ public class AltProduto extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new AltProduto().setVisible(true);
+                new AltVenda().setVisible(true);
             }
         });
     }

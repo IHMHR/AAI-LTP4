@@ -158,4 +158,18 @@ public class Vendas
         }
         return retorno;
     }
+    
+    public static ResultSet listaVendas() throws ErrorHandle
+    {
+        retorno = null;
+        try
+        {
+            retorno = Banco.Selecionar("v.codVenda, ven.nome_vendedor, c.nome, v.data_venda", TABLE_NAME + " v INNER JOIN vendedores ven ON ON v.cod_vendedor = ven.cod_vendedor INNER JOIN clientes c ON c.codCliente = v.codCliente");
+        }
+        catch (ErrorHandle | ClassNotFoundException e)
+        {
+            throw new ErrorHandle("Falha ao gerar relatório pelo Período de vendas");
+        }
+        return retorno;
+    }
 }
