@@ -1,19 +1,12 @@
 package usuario.Cadastro;
 
-import classes.Clientes;
-import classes.Itens;
-import classes.Produtos;
-import classes.Vendas;
-import classes.Vendedores;
+import classes.*;
 import erro.ErrorHandle;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import usuario.MainPage;
 
 /**

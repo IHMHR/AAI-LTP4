@@ -1,15 +1,9 @@
 package usuario;
 
-import usuario.Pesquisa.PesqCliente;
-import usuario.Pesquisa.PesqProduto;
-import usuario.Cadastro.CadCliente;
-import usuario.Cadastro.CadVendedor;
-import usuario.Cadastro.CadProduto;
-import usuario.Cadastro.CadVenda;
+import usuario.Pesquisa.*;
+import usuario.Cadastro.*;
 import javax.swing.JOptionPane;
-import usuario.Modificacao.AltCliente;
-import usuario.Modificacao.AltProduto;
-import usuario.Modificacao.AltVendedor;
+import usuario.Modificacao.*;
 
 /**
  * @version 1.0
@@ -209,6 +203,11 @@ public class MainPage extends javax.swing.JFrame {
         jMenu4.add(jMenu9);
 
         jMenuItem15.setText("Alteração");
+        jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem15ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem15);
 
         jMenuItem16.setText("Relatório");
@@ -307,6 +306,11 @@ public class MainPage extends javax.swing.JFrame {
         this.dispose();
         new AltVendedor().setVisible(true);
     }//GEN-LAST:event_jMenuItem11ActionPerformed
+
+    private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
+        this.dispose();
+        new AltVenda().setVisible(true);
+    }//GEN-LAST:event_jMenuItem15ActionPerformed
 
     /**
      * @param args the command line arguments
