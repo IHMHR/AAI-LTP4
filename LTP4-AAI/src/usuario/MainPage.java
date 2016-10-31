@@ -165,9 +165,19 @@ public class MainPage extends javax.swing.JFrame {
         jMenu8.setText("Pesquisa");
 
         jMenuItem22.setText("Pelo Código");
+        jMenuItem22.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem22ActionPerformed(evt);
+            }
+        });
         jMenu8.add(jMenuItem22);
 
         jMenuItem23.setText("Pelo Nome");
+        jMenuItem23.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem23ActionPerformed(evt);
+            }
+        });
         jMenu8.add(jMenuItem23);
 
         jMenu3.add(jMenu8);
@@ -246,6 +256,7 @@ public class MainPage extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         jMenuBar1.setVisible(true);
+        jMenuItem14.setVisible(false);
     }//GEN-LAST:event_formWindowOpened
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -311,6 +322,16 @@ public class MainPage extends javax.swing.JFrame {
         this.dispose();
         new AltVenda().setVisible(true);
     }//GEN-LAST:event_jMenuItem15ActionPerformed
+
+    private void jMenuItem22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem22ActionPerformed
+        this.dispose();
+        new PesqVendedor(1).setVisible(true);
+    }//GEN-LAST:event_jMenuItem22ActionPerformed
+
+    private void jMenuItem23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem23ActionPerformed
+        this.dispose();
+        new PesqVendedor(2).setVisible(true);
+    }//GEN-LAST:event_jMenuItem23ActionPerformed
 
     /**
      * @param args the command line arguments
