@@ -27,10 +27,8 @@ public class CadCliente extends javax.swing.JFrame {
         {
             ResultSet estados = Uf.listaEstados();
             DefaultComboBoxModel combo = new DefaultComboBoxModel();
-            DefaultComboBoxModel combo2 = new DefaultComboBoxModel();
             while (estados.next())
             {
-                combo2.addElement(estados.getString(1));
                 combo.addElement(estados.getString(2));
             }
             
