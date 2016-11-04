@@ -261,7 +261,7 @@ public class Clientes
         retorno = null;
         try
         {
-            retorno = Banco.Selecionar("codcliente, nome, endereço, cidade, estado, cep, telefone, e_mail, data_cad_cliente", "Clientes c INNER JOIN Estados e ON c.uf = e.uf", "ORDER BY nome ASC");
+            retorno = Banco.Selecionar("codcliente, nome, endereco, cidade, estado, cep, telefone, e_mail, data_cad_cliente", "Clientes c INNER JOIN Estados e ON c.uf = e.uf", "ORDER BY nome ASC");
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {

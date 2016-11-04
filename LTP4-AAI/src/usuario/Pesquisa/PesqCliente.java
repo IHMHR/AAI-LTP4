@@ -2,8 +2,11 @@ package usuario.Pesquisa;
 
 import classes.Clientes;
 import erro.ErrorHandle;
+import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import usuario.MainPage;
 import utilitarios.LtpUtil;
@@ -58,6 +61,12 @@ public class PesqCliente extends javax.swing.JFrame
         jLabel1.setText("Pesquisa de Cliente");
 
         jLabel2.setText("jLabel2");
+
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
+        });
 
         jButton1.setText("Pesquisar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -162,6 +171,49 @@ public class PesqCliente extends javax.swing.JFrame
         this.dispose();
         new MainPage().setVisible(true);
     }//GEN-LAST:event_formWindowClosing
+
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+        try
+        {
+            if(evt.getKeyCode() == KeyEvent.VK_ENTER && jTextField1.getText().length() < 1)
+            {
+                throw new ErrorHandle("Preencher o campo para realizar a pesquisa");
+            }
+            else if(evt.getKeyCode() == KeyEvent.VK_ENTER && jTextField1.getText().length() > 1)
+            {
+                try
+                {
+                    if(jTextField1.getText().length() < 1)
+                    {
+                        throw new ErrorHandle("Preencher o campo para realizar a pesquisa");
+                    }
+                    Clientes cli = new Clientes();
+                    if (opcao == 1)
+                    {
+                        // Pesquisa pelo cod
+                        cli.setCodCliente(Integer.parseInt(jTextField1.getText()));
+                        ResultSet pesq = cli.pesquisaPeloCod();
+                        LtpUtil.loadFormatJTable(jTable1, pesq, true);
+                    }
+                    else if(opcao == 2)
+                    {
+                        // Pesquisa pelo nome
+                        cli.setNome(jTextField1.getText());
+                        ResultSet pesq = cli.pesquisaPeloNome();
+                        LtpUtil.loadFormatJTable(jTable1, pesq, true);
+                    }
+                }
+                catch (NumberFormatException | ErrorHandle | SQLException e)
+                {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Falha na pesquisa", 0);
+                }
+            }
+        }
+        catch (ErrorHandle e)
+        {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Falha na pesquisa", 0);
+        }
+    }//GEN-LAST:event_jTextField1KeyPressed
 
     /**
      * @param args the command line arguments

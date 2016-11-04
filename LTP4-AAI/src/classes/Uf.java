@@ -48,7 +48,7 @@ public class Uf
         retorno = null;
         try
         {
-            retorno = Banco.Selecionar("CONCAT(uf, ' - ', estado) AS uf, estado", TABLE_NAME);
+            retorno = Banco.Selecionar("uf, estado", TABLE_NAME);
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {

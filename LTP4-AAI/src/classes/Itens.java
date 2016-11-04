@@ -96,7 +96,7 @@ public class Itens
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
-            throw new ErrorHandle("Falha na inserção de nova Venda");
+            throw new ErrorHandle("Falha na inserção de novo Item");
         }
     }
 }

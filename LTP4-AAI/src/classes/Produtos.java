@@ -97,7 +97,7 @@ public class Produtos
         retorno = null;
         try
         {
-            retorno = Banco.Selecionar("codProduto, produto, cod_unidade, preco_unidade, dataPreco", TABLE_NAME, "WHERE codProduto = " + codProduto);
+            retorno = Banco.Selecionar("codProduto, produto, codunidade, preco, dataPreco", TABLE_NAME, "WHERE codProduto = " + codProduto);
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
@@ -183,11 +183,11 @@ public class Produtos
         retorno = null;
         try
         {
-            retorno = Banco.Selecionar("codProduto, produto, cod_unidade, preco_unidade, dataPreco", TABLE_NAME, "ORDER BY produto ASC");
+            retorno = Banco.Selecionar("codProduto, produto, codunidade, preco, dataPreco", TABLE_NAME, "ORDER BY produto ASC");
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
-            throw new ErrorHandle("Falha ao listar Produtos");
+            throw new ErrorHandle("Falha ao listar Produtos" + e);
         }
         return retorno;
     }

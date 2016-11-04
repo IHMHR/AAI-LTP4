@@ -5,6 +5,7 @@ import erro.ErrorHandle;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.util.Calendar;
+import javax.swing.JOptionPane;
 
 /**
  * @version 1.0
@@ -80,7 +81,7 @@ public class Vendas
         retorno = null;
         try
         {
-            retorno = Banco.Selecionar("v.codVenda, c.nome, ven.nome_vendedor, v.data_venda", TABLE_NAME + " v INNER JOIN vendedores ven ON v.cod_vendedor = ven.cod_vendedor INNER JOIN cliente c INNER JOIN c.codCliente = codCliente", "WHERE codVenda = " + codVenda);
+            retorno = Banco.Selecionar("v.codVenda, c.nome Nome_Cliente, ven.nome_vendedor, v.data_venda", TABLE_NAME + " v INNER JOIN vendedores ven ON v.cod_vendedor = ven.cod_vendedor INNER JOIN clientes c ON c.codCliente = v.codCliente", "WHERE codVenda = " + codVenda);
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
@@ -108,11 +109,11 @@ public class Vendas
         try
         {
             dataVenda = new Date(Calendar.getInstance().getTime().getTime());
-            retorno = Banco.InserirComRetorno(TABLE_NAME, "cod_vendedor, codCliente, data_venda", codVendedor + "," + codCliente + "'" + dataVenda + "'");
+            retorno = Banco.InserirComRetorno(TABLE_NAME, "cod_vendedor, codCliente, data_venda", codVendedor + "," + codCliente + ",'" + dataVenda + "'");
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
-            throw new ErrorHandle("Falha na inserção de nova Venda");
+            throw new ErrorHandle("Falha na inserção de nova Venda " + e);
         }
         return retorno;
     }

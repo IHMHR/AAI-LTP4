@@ -208,6 +208,11 @@ public class MainPage extends javax.swing.JFrame {
         jMenu9.setText("Pesquisa");
 
         jMenuItem24.setText("Pelo Código");
+        jMenuItem24.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem24ActionPerformed(evt);
+            }
+        });
         jMenu9.add(jMenuItem24);
 
         jMenu4.add(jMenu9);
@@ -280,7 +285,7 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
     private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
-        JOptionPane.showMessageDialog(null, "Autor: Igor Martinelli Ramos\nRA: 225519971\nAno/Período: 2016/2\nProfessor: Erix Morato", "Trabalho Auto Instrucional de LTP 4", 1);        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "Autor: Igor Martinelli Ramos\nRA: 225519971\nAno/Período: 2016/2\nProfessor: Erix Morato", "Trabalho Auto Instrucional de LTP 4", 1);
     }//GEN-LAST:event_jMenuItem17ActionPerformed
 
     private void jMenuItem18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem18ActionPerformed
@@ -332,6 +337,11 @@ public class MainPage extends javax.swing.JFrame {
         this.dispose();
         new PesqVendedor(2).setVisible(true);
     }//GEN-LAST:event_jMenuItem23ActionPerformed
+
+    private void jMenuItem24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem24ActionPerformed
+        this.dispose();
+        new PesqVenda().setVisible(true);
+    }//GEN-LAST:event_jMenuItem24ActionPerformed
 
     /**
      * @param args the command line arguments

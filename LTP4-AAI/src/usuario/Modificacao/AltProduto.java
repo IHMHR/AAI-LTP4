@@ -7,8 +7,10 @@ package usuario.Modificacao;
 
 import classes.Produtos;
 import erro.ErrorHandle;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import usuario.MainPage;
 import utilitarios.LtpUtil;
@@ -65,7 +67,7 @@ public class AltProduto extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jButton1.setText("Alterar");
+        jButton1.setText("Habilitar Alteração");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -140,6 +142,8 @@ public class AltProduto extends javax.swing.JFrame {
         catch (ErrorHandle | SQLException e)
         {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Falha na pesquisa", 0);
+            jButton1.setEnabled(false);
+            jButton2.setEnabled(false);
         }
     }
     
@@ -166,11 +170,38 @@ public class AltProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(jTable1.getSelectedRow() >= 0)
+        if(jButton1.getText().equals("Habilitar Alteração"))
         {
-            /*
-                HABILITAR QUE SEJA EDITADO
-            */
+            jTable1.setEnabled(true);
+            jButton1.setText("Alterar");
+        }
+        else if(jButton1.getText().equals("Alterar"))
+        {
+            try
+            {
+                Produtos pro = new Produtos();
+                pro.setCodProduto(Integer.parseInt((String) jTable1.getValueAt(jTable1.getSelectedRow(), 0)));
+                pro.setCodUnidade(0);
+                pro.setDataPreco(Date.valueOf(LocalDate.MAX));
+                pro.setPrecoUnidade(0);
+                pro.setProduto("");
+                pro.Alterar();
+                JOptionPane.showMessageDialog(null, "Alteração do cliente realizada com sucesso.", "Alterar cliente com sucesso", 3);
+                fillTable();
+            }
+            catch (NumberFormatException | ErrorHandle e)
+            {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Falha ao alterar cliente", 0);
+            }
+            finally
+            {
+                jTable1.setEnabled(true);
+                jButton1.setText("Habilitar Alteração");
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Alguma coisa errada com o botão", "Falha ao alterar vendedor", 0);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
     

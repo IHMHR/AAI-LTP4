@@ -5,6 +5,7 @@ import classes.Uf;
 import erro.ErrorHandle;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import usuario.MainPage;
@@ -13,7 +14,9 @@ import usuario.MainPage;
  * @version 1.0
  * @author Igor Martinelli
  */
-public class CadCliente extends javax.swing.JFrame {
+public class CadCliente extends javax.swing.JFrame
+{
+    private static HashMap<String, String> estadosUF;
 
     /**
      * Creates new form CadCliente
@@ -21,14 +24,15 @@ public class CadCliente extends javax.swing.JFrame {
     public CadCliente()
     {
         initComponents();
-        jComboBox2.setVisible(false);
         
         try
         {
+            estadosUF = new HashMap<>();
             ResultSet estados = Uf.listaEstados();
             DefaultComboBoxModel combo = new DefaultComboBoxModel();
             while (estados.next())
             {
+                estadosUF.put(estados.getString(2), estados.getString(1));
                 combo.addElement(estados.getString(2));
             }
             
@@ -37,6 +41,15 @@ public class CadCliente extends javax.swing.JFrame {
         catch (ErrorHandle | SQLException e)
         {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            jTextField1.setEnabled(false);
+            jTextField2.setEnabled(false);
+            jTextField3.setEnabled(false);
+            jTextField4.setEnabled(false);
+            jTextField5.setEnabled(false);
+            jTextField6.setEnabled(false);
+            jTextField7.setEnabled(false);
+            jComboBox1.setEnabled(false);
+            jButton1.setEnabled(false);
         }
     }
 
@@ -68,7 +81,6 @@ public class CadCliente extends javax.swing.JFrame {
         jTextField5 = new javax.swing.JTextField();
         jTextField6 = new javax.swing.JTextField();
         jTextField7 = new javax.swing.JTextField();
-        jComboBox2 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Clientes");
@@ -111,9 +123,6 @@ public class CadCliente extends javax.swing.JFrame {
             }
         });
 
-        jComboBox2.setEnabled(false);
-        jComboBox2.setFocusable(false);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -155,8 +164,6 @@ public class CadCliente extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55)
                 .addComponent(jButton2)
                 .addGap(40, 40, 40))
         );
@@ -200,8 +207,7 @@ public class CadCliente extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -214,8 +220,8 @@ public class CadCliente extends javax.swing.JFrame {
         new MainPage().setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    @SuppressWarnings("element-type-mismatch")
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        JOptionPane.showMessageDialog(null, String.valueOf(jComboBox1.getSelectedIndex()));
         if(jTextField1.getText().equals("") || jTextField2.getText().equals("") || jTextField3.getText().equals("")
                 || jTextField4.getText().equals("") || jTextField5.getText().equals("") || jTextField6.getText().equals("")
                 || jTextField7.getText().equals(""))
@@ -262,16 +268,12 @@ public class CadCliente extends javax.swing.JFrame {
                 cli.setEndereco(jTextField2.getText());
                 cli.setNome(jTextField1.getText());
                 cli.setTelefone(jTextField6.getText());
-                cli.setUf(String.valueOf(jComboBox1.getSelectedIndex()));
+                cli.setUf(estadosUF.get(jComboBox1.getSelectedItem()));
                 cli.Inserir();
             }
-            catch (ErrorHandle e)
+            catch (ErrorHandle | NumberFormatException e)
             {
-                JOptionPane.showMessageDialog(null, e.getMessage(), "Erro ao salvar Cliente", HEIGHT);
-            }
-            catch (Exception e)
-            {
-                JOptionPane.showMessageDialog(null, e.getMessage(), "Erro ao salvar Cliente", HEIGHT);
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Erro ao salvar Cliente", 0);
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -321,7 +323,6 @@ public class CadCliente extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

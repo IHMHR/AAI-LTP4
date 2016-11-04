@@ -5,6 +5,7 @@ import classes.Unidade;
 import erro.ErrorHandle;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import usuario.MainPage;
@@ -13,7 +14,9 @@ import usuario.MainPage;
  * @version 1.0
  * @author Igor Martinelli
  */
-public class CadProduto extends javax.swing.JFrame {
+public class CadProduto extends javax.swing.JFrame
+{
+    private static HashMap<String, Integer> unidadesHM;
 
     /**
      * Creates new form CadProduto
@@ -144,6 +147,7 @@ public class CadProduto extends javax.swing.JFrame {
         new MainPage().setVisible(true);
     }//GEN-LAST:event_formWindowClosing
 
+    @SuppressWarnings("element-type-mismatch")
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if(jTextField1.getText().equals("") || jTextField3.getText().equals(""))
         {
@@ -162,7 +166,7 @@ public class CadProduto extends javax.swing.JFrame {
             try
             {
                 Produtos pro = new Produtos();
-                pro.setCodUnidade(jComboBox1.getSelectedIndex());
+                pro.setCodUnidade(unidadesHM.get(jComboBox1.getSelectedItem()));
                 pro.setPrecoUnidade(Double.parseDouble(jTextField3.getText().trim().replace(",", ".")));
                 pro.setProduto(jTextField1.getText());
                 pro.Inserir();
@@ -186,10 +190,12 @@ public class CadProduto extends javax.swing.JFrame {
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         try
         {
+            unidadesHM = new HashMap<>();
             ResultSet unidades = Unidade.listaUnidades();
             DefaultComboBoxModel combo = new DefaultComboBoxModel();
             while (unidades.next())
             {
+                unidadesHM.put(unidades.getString(2), unidades.getInt(1));
                 combo.addElement(unidades.getString(2));
             }
             
@@ -198,6 +204,10 @@ public class CadProduto extends javax.swing.JFrame {
         catch (ErrorHandle | SQLException e)
         {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            jTextField1.setEnabled(false);
+            jTextField3.setEnabled(false);
+            jComboBox1.setEnabled(false);
+            jButton1.setEnabled(false);
         }
     }//GEN-LAST:event_formComponentShown
 

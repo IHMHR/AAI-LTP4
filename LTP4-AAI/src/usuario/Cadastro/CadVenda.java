@@ -4,6 +4,7 @@ import classes.*;
 import erro.ErrorHandle;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -13,13 +14,37 @@ import usuario.MainPage;
  * @version 1.0
  * @author Igor Martinelli
  */
-public class CadVenda extends javax.swing.JFrame {
+public class CadVenda extends javax.swing.JFrame
+{
+    private static HashMap<String, Integer> VendedoresHM;
+    private static HashMap<String, Integer> ClientesHM;
+    private static HashMap<String, Integer> ProdutosHM;
+    private static double ValorTotalFinal = 0.00;
+    
 
     /**
      * Creates new form CadVenda
      */
     public CadVenda() {
         initComponents();
+        
+        DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+        model.addColumn("CodVendedor");
+        model.addColumn("Vendedor");
+        model.addColumn("CodCliente");
+        model.addColumn("Cliente");
+        model.addColumn("CodProduto");
+        model.addColumn("Produto");
+        model.addColumn("Quantidade");
+        model.addColumn("Preco");
+        model.addColumn("Total");
+        model.removeRow(0);
+        model.removeRow(0);
+        model.removeRow(0);
+        model.removeRow(0);
+        cmbCliente.setSelectedIndex(-1);
+        cmbProduto.setSelectedIndex(-1);
+        cmbVendedor.setSelectedIndex(-1);
     }
 
     /**
@@ -48,15 +73,19 @@ public class CadVenda extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        QntProdutos = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        valorTotal = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Venda");
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowOpened(java.awt.event.WindowEvent evt) {
-                formWindowOpened(evt);
-            }
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
         });
 
@@ -118,6 +147,14 @@ public class CadVenda extends javax.swing.JFrame {
             }
         });
 
+        jLabel8.setText("Quantidade de Produtos:");
+
+        QntProdutos.setText("0");
+
+        jLabel9.setText("Total: R$");
+
+        valorTotal.setText("0,00");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -128,43 +165,50 @@ public class CadVenda extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmbVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(45, 45, 45)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel4)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cmbProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(12, 12, 12)
-                                        .addComponent(jLabel7))
-                                    .addComponent(jLabel6))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButton3)
-                        .addGap(97, 97, 97)
+                        .addGap(164, 164, 164)
                         .addComponent(jButton4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2)))
+                        .addComponent(jButton2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(QntProdutos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(valorTotal))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addGap(321, 321, 321))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 214, Short.MAX_VALUE)
+                                .addComponent(jLabel7)
+                                .addGap(128, 128, 128))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addComponent(cmbProduto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmbVendedor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -193,6 +237,12 @@ public class CadVenda extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(QntProdutos)
+                    .addComponent(jLabel9)
+                    .addComponent(valorTotal))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton3)
                     .addComponent(jButton4))
@@ -211,25 +261,48 @@ public class CadVenda extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         try
         {
+           
+            VendedoresHM = new HashMap<>();
+            ClientesHM = new HashMap<>();
+            ProdutosHM = new HashMap<>();
+            
             ResultSet clientes = Clientes.listaClientes();
             DefaultComboBoxModel combo = new DefaultComboBoxModel();
             while (clientes.next())
             {
+                ClientesHM.put(clientes.getString(2), clientes.getInt(1));
                 combo.addElement(clientes.getString(2));
             }
-            cmbVendedor.setModel(combo);
+            cmbCliente.setModel(combo);
             
             ResultSet vendedores = Vendedores.listaVendedores();
             combo = new DefaultComboBoxModel();
             while (vendedores.next())
             {
+                VendedoresHM.put(vendedores.getString(2), vendedores.getInt(1));
                 combo.addElement(vendedores.getString(2));
             }
-            cmbCliente.setModel(combo);
+            cmbVendedor.setModel(combo);
+            
+            ResultSet produtos = Produtos.listaProdutos();
+            combo = new DefaultComboBoxModel();
+            while (produtos.next())
+            {
+                ProdutosHM.put(produtos.getString(2), produtos.getInt(1));
+                combo.addElement(produtos.getString(2));
+            }
+            cmbProduto.setModel(combo);
         }
         catch (ErrorHandle | SQLException e)
         {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Falha ao popular ComboBoxes", 0);
+            txtQuantidade.setEnabled(false);
+            cmbCliente.setEnabled(false);
+            cmbProduto.setEnabled(false);
+            cmbVendedor.setEnabled(false);
+            jButton1.setEnabled(false);
+            jButton3.setEnabled(false);
+            jButton4.setEnabled(false);
         }
     }//GEN-LAST:event_formWindowOpened
 
@@ -239,24 +312,40 @@ public class CadVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        jTable1.removeAll();
+        try
+        {
+            cmbVendedor.setEnabled(true);
+            cmbCliente.setEnabled(true);
+            DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+            while(1 == 1)
+            {
+                model.removeRow(0);
+            }
+        }
+        catch (Exception e)
+        { }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        if(jTable1.getRowCount() < 1)
+        {
+            JOptionPane.showMessageDialog(null, "Adicione algum produto ao carrinho !", "Nada no carrinho", 2);
+            return;
+        }
         try
         {
             Vendas v = new Vendas();
-            v.setCodCliente(0);
-            v.setCodVendedor(0);
+            v.setCodCliente(Integer.parseInt((String) jTable1.getValueAt(0, 2)));
+            v.setCodVendedor(Integer.parseInt((String) jTable1.getValueAt(0, 0)));
             ResultSet vendaID = v.InserirComRetorno();
             
             for (int i = 0; i < jTable1.getRowCount(); i++)
             {
                 Itens it = new Itens();
-                it.setCodProduto(Integer.parseInt(jTable1.getValueAt(i, column).toString()));
+                it.setCodProduto(Integer.parseInt(jTable1.getValueAt(i, 4).toString()));
                 it.setCodVenda(vendaID.getInt(1));
                 it.setQuantidade(Integer.parseInt(txtQuantidade.getText()));
-                it.setValor(Double.parseDouble(jTable1.getValueAt(i, column).toString()));
+                it.setValor(Double.parseDouble(jTable1.getValueAt(i, 7).toString()));
                 it.AdicioarItemVenda();
             }
         }
@@ -266,19 +355,56 @@ public class CadVenda extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    @SuppressWarnings("element-type-mismatch")
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if(cmbVendedor.getSelectedIndex() == -1)
+        {
+            JOptionPane.showMessageDialog(null, "A seleção de um vendedor é obrigatória.", "Selecionar Vendedor", 2);
+            return;
+        }
+        if(cmbCliente.getSelectedIndex() == -1)
+        {
+            JOptionPane.showMessageDialog(null, "A seleção de um cliente é obrigatória.", "Selecionar Cliente", 2);
+            return;
+        }
+        if(cmbProduto.getSelectedIndex() == -1)
+        {
+            JOptionPane.showMessageDialog(null, "A seleção de um produto é obrigatória.", "Selecionar Produto", 2);
+            return;
+        }
+        if(txtQuantidade.getText().length() < 1)
+        {
+            JOptionPane.showMessageDialog(null, "Informe a quantidade do produto.", "Informe a Quantidade", 2);
+            return;
+        }
         try
         {
             Produtos prod = new Produtos();
-            prod.setCodProduto(0);
+            prod.setCodProduto(ProdutosHM.get(cmbProduto.getSelectedItem()));
             ResultSet info = prod.PesquisaPeloCod();
+            info.next();
             
             DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
-            model.addRow(new Object[]{info.getInt(1), info.getString(2), txtQuantidade.getText(), info.getDouble(4)});
+            
+            model.addRow(new Object[]{VendedoresHM.get(cmbVendedor.getSelectedItem()).toString(), cmbVendedor.getSelectedItem().toString(), ClientesHM.get(cmbCliente.getSelectedItem()).toString(), cmbCliente.getSelectedItem().toString(), info.getInt(1), info.getString(2), txtQuantidade.getText(), info.getDouble(4), Double.parseDouble(txtQuantidade.getText()) * info.getDouble(4)});
+            ValorTotalFinal += Double.parseDouble(txtQuantidade.getText()) * info.getDouble(4);
+            valorTotal.setText(String.valueOf(ValorTotalFinal).replace(".", ","));
+            if(valorTotal.getText().length() - valorTotal.getText().indexOf(",") == 2)
+            {
+                valorTotal.setText(valorTotal.getText().concat("0"));
+            }
+            QntProdutos.setText(String.valueOf(jTable1.getRowCount()));
         }
         catch (ErrorHandle | SQLException e)
         {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Falha ao adicionar produto ao carrinho", 0);
+        }
+        finally
+        {
+            txtQuantidade.setText("");
+            cmbVendedor.setEnabled(false);
+            cmbCliente.setEnabled(false);
+            cmbProduto.setSelectedIndex(-1);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -311,6 +437,7 @@ public class CadVenda extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new CadVenda().setVisible(true);
             }
@@ -318,6 +445,7 @@ public class CadVenda extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel QntProdutos;
     private javax.swing.JComboBox<String> cmbCliente;
     private javax.swing.JComboBox<String> cmbProduto;
     private javax.swing.JComboBox<String> cmbVendedor;
@@ -332,8 +460,11 @@ public class CadVenda extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField txtQuantidade;
+    private javax.swing.JLabel valorTotal;
     // End of variables declaration//GEN-END:variables
 }

@@ -7,6 +7,7 @@ package usuario.Pesquisa;
 
 import classes.Produtos;
 import erro.ErrorHandle;
+import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -61,6 +62,12 @@ public class PesqProduto extends javax.swing.JFrame {
         jLabel1.setText("Pesquisa de Produto");
 
         jLabel2.setText("jLabel2");
+
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
+        });
 
         jButton1.setText("Pesquisar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -164,6 +171,49 @@ public class PesqProduto extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Falha na pesquisa", 0);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+        try
+        {
+            if(evt.getKeyCode() == KeyEvent.VK_ENTER && jTextField1.getText().length() < 1)
+            {
+                throw new ErrorHandle("Preencher o campo para realizar a pesquisa");
+            }
+            else if(evt.getKeyCode() == KeyEvent.VK_ENTER && jTextField1.getText().length() > 1)
+            {
+                try
+                {
+                    if(jTextField1.getText().length() < 1)
+                    {
+                        throw new ErrorHandle("Preencher o campo para realizar a pesquisa");
+                    }
+                    Produtos pro = new Produtos();
+                    if (opcao == 1)
+                    {
+                        // Pesquisa pelo cod
+                        pro.setCodProduto(Integer.parseInt(jTextField1.getText()));
+                        ResultSet pesq = pro.PesquisaPeloCod();
+                        LtpUtil.loadFormatJTable(jTable1, pesq, true);
+                    }
+                    else if(opcao == 2)
+                    {
+                        // Pesquisa pelo nome
+                        pro.setProduto(jTextField1.getText());
+                        ResultSet pesq = pro.PesquisaPeloNome();
+                        LtpUtil.loadFormatJTable(jTable1, pesq, true);
+                    }
+                }
+                catch (NumberFormatException | ErrorHandle | SQLException e)
+                {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Falha na pesquisa", 0);
+                }
+            }
+        }
+        catch (ErrorHandle e)
+        {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Falha na pesquisa", 0);
+        }
+    }//GEN-LAST:event_jTextField1KeyPressed
 
     /**
      * @param args the command line arguments

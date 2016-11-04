@@ -80,7 +80,7 @@ public class Vendedores
         retorno = null;
         try
         {
-            retorno = Banco.Selecionar("cod_vendedor, nome_vendedor, data_cad_vendedor", TABLE_NAME, "WHERE cod_vendedor = '" + codVendedor + "' ORDER BY nome_vendedor");
+            retorno = Banco.Selecionar("cod_vendedor, nome_vendedor, data_cad_vendedor", TABLE_NAME, "WHERE nome_vendedor LIKE '" + nomeVendedor + "%' ORDER BY nome_vendedor");
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
@@ -106,7 +106,7 @@ public class Vendedores
     {
         try
         {
-            Banco.Alterar(TABLE_NAME, "nome = '" + nomeVendedor + "'", "cod_vendedor = " + codVendedor);
+            Banco.Alterar(TABLE_NAME, "nome_vendedor = '" + nomeVendedor + "'", "cod_vendedor = " + codVendedor);
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
@@ -119,7 +119,7 @@ public class Vendedores
         retorno = null;
         try
         {
-            retorno = Banco.Selecionar("COUNT(1)", "vendas", "WHERE Cod_Vendedor = " + codVendedor);
+            retorno = Banco.Selecionar("1", "vendas", "WHERE Cod_Vendedor = " + codVendedor);
             if (retorno.next())
             {
                 throw new ErrorHandle("Não pode ser realizar a exclusão do vendedor devido ao fato do mesmo já ter realizado vendas.");
@@ -129,7 +129,7 @@ public class Vendedores
         }
         catch (ErrorHandle | ClassNotFoundException | SQLException e)
         {
-            throw new ErrorHandle("Falha na exclusao de Vendedor");
+            throw new ErrorHandle("Falha na exclusao de Vendedor \n " + e);
         }
         finally
         {

@@ -1,7 +1,6 @@
 package banco;
 
 import erro.ErrorHandle;
-import java.awt.datatransfer.Clipboard;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.DriverManager;
@@ -171,12 +170,14 @@ public abstract class Banco
         try 
         {
             AbrirConexao();
+            System.out.println("INSERT INTO " + table + " (" + fields + ") VALUES (" + values + ")");
             comando = conexao.prepareStatement("INSERT INTO " + table + " (" + fields + ") VALUES (" + values + ")");
             retorno = comando.executeQuery();
         }
         catch (SQLException erro)
         {
-            throw new erro.ErrorHandle("Falha ao realizar a inserção de dados na tabela " + table);
+            throw new erro.ErrorHandle("Seguinte erro: " + erro);
+            //throw new erro.ErrorHandle("Falha ao realizar a inserção de dados na tabela " + table);
         }
         return retorno;
     }
@@ -229,7 +230,6 @@ public abstract class Banco
         try 
         {
             AbrirConexao();
-            System.out.println("SELECT " + columns + " FROM " + table);
             comando = conexao.prepareStatement("SELECT " + columns + " FROM " + table);
             retorno = comando.executeQuery();
         }

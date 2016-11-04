@@ -44,15 +44,15 @@ public class AltVendedor extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Alteração de Vendedor");
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowOpened(java.awt.event.WindowEvent evt) {
-                formWindowOpened(evt);
-            }
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
         });
 
-        jButton1.setText("Alterar");
+        jButton1.setText("Habilitar Alteração");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -84,6 +84,7 @@ public class AltVendedor extends javax.swing.JFrame {
 
             }
         ));
+        jTable1.setEnabled(false);
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -135,6 +136,8 @@ public class AltVendedor extends javax.swing.JFrame {
         catch (ErrorHandle | SQLException e)
         {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Falha na pesquisa", 0);
+            jButton1.setEnabled(false);
+            jButton2.setEnabled(false);
         }
     }
     
@@ -166,11 +169,35 @@ public class AltVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(jTable1.getSelectedRow() >= 0)
+        if(jButton1.getText().equals("Habilitar Alteração"))
         {
-            /*
-                HABILITAR QUE SEJA EDITADO
-            */
+            jTable1.setEnabled(true);
+            jButton1.setText("Alterar");
+        }
+        else if(jButton1.getText().equals("Alterar"))
+        {
+            try
+            {
+                Vendedores ven = new Vendedores();
+                ven.setCodVendedor(Integer.parseInt((String) jTable1.getValueAt(jTable1.getSelectedRow(), 0)));
+                ven.setNomeVendedor((String) jTable1.getValueAt(jTable1.getSelectedRow(), 1));
+                ven.Alterar();
+                JOptionPane.showMessageDialog(null, "Alteração do vendedor realizada com sucesso.", "Alterar vendedor com sucesso", 3);
+                fillTable();
+            }
+            catch (NumberFormatException | ErrorHandle e)
+            {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Falha ao alterar vendedor", 0);
+            }
+            finally
+            {
+                jTable1.setEnabled(true);
+                jButton1.setText("Habilitar Alteração");
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Alguma coisa errada com o botão", "Falha ao alterar vendedor", 0);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
