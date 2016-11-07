@@ -165,7 +165,7 @@ public class Vendas
         retorno = null;
         try
         {
-            retorno = Banco.Selecionar("v.codVenda, ven.nome_vendedor, c.nome, v.data_venda", TABLE_NAME + " v INNER JOIN vendedores ven ON ON v.cod_vendedor = ven.cod_vendedor INNER JOIN clientes c ON c.codCliente = v.codCliente");
+            retorno = Banco.Selecionar("v.codVenda, ven.cod_vendedor, ven.nome_vendedor, c.codCliente, c.nome, v.data_venda", TABLE_NAME + " v INNER JOIN vendedores ven ON ON v.cod_vendedor = ven.cod_vendedor INNER JOIN clientes c ON c.codCliente = v.codCliente");
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {

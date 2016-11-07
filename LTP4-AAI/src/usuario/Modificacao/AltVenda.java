@@ -134,10 +134,9 @@ public class AltVenda extends javax.swing.JFrame {
             try
             {
                 Vendas ven = new Vendas();
-                ven.setCodCliente(0);
-                //ven.setCodVenda(0);
-                ven.setCodVendedor(0);
-                //ven.setDataVenda(0);
+                ven.setCodVenda(Integer.parseInt((String) jTable1.getValueAt(jTable1.getSelectedRow(), 0)));
+                ven.setCodCliente(Integer.parseInt((String) jTable1.getValueAt(jTable1.getSelectedRow(), 3)));
+                ven.setCodVendedor(Integer.parseInt((String) jTable1.getValueAt(jTable1.getSelectedRow(), 1)));
                 ven.Alterar();
                 JOptionPane.showMessageDialog(null, "Alteração do cliente realizada com sucesso.", "Alterar cliente com sucesso", 3);
                 fillTable();
