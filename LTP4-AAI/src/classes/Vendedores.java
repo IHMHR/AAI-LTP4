@@ -2,9 +2,12 @@ package classes;
 
 import banco.Banco;
 import erro.ErrorHandle;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
@@ -61,7 +64,7 @@ public class Vendedores
         Vendedores.dataCadVendedor = dataCadVendedor;
     }
     
-    public ResultSet PesquisaPeloCod() throws ErrorHandle
+    public ResultSet PesquisaPeloCod() throws ErrorHandle, IOException
     {
         retorno = null;
         try
@@ -70,12 +73,16 @@ public class Vendedores
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
+            FileWriter arq = new FileWriter("erroLog.txt", true);
+            arq.write(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " - " + e + " (PesquisaPeloCod)(Vendedores)\n");
+            arq.flush();
+            arq.close();
             throw new ErrorHandle("Falha na pesquisa pelo Código do Vendedor");
         }
         return retorno;
     }
     
-    public ResultSet PesquisaPeloNome() throws ErrorHandle
+    public ResultSet PesquisaPeloNome() throws ErrorHandle, IOException
     {
         retorno = null;
         try
@@ -84,12 +91,16 @@ public class Vendedores
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
+            FileWriter arq = new FileWriter("erroLog.txt", true);
+            arq.write(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " - " + e + " (PesquisaPeloNome)(Vendedores)\n");
+            arq.flush();
+            arq.close();
             throw new ErrorHandle("Falha na pesquisa pelo Nome do Vendedor");
         }
         return retorno;
     }
     
-    public void Inserir() throws ErrorHandle
+    public void Inserir() throws ErrorHandle, IOException
     {
         try
         {
@@ -98,11 +109,15 @@ public class Vendedores
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
+            FileWriter arq = new FileWriter("erroLog.txt", true);
+            arq.write(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " - " + e + " (Inserir)(Vendedores)\n");
+            arq.flush();
+            arq.close();
             throw new ErrorHandle("Falha na inserção de novo Vendedor");
         }
     }
     
-    public void Alterar() throws ErrorHandle
+    public void Alterar() throws ErrorHandle, IOException
     {
         try
         {
@@ -110,11 +125,15 @@ public class Vendedores
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
+            FileWriter arq = new FileWriter("erroLog.txt", true);
+            arq.write(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " - " + e + " (Alterar)(Vendedores)\n");
+            arq.flush();
+            arq.close();
             throw new ErrorHandle("Falha na alteração de Vendedor");
         }
     }
     
-    public void Apagar() throws ErrorHandle
+    public void Apagar() throws ErrorHandle, IOException
     {
         retorno = null;
         try
@@ -129,6 +148,10 @@ public class Vendedores
         }
         catch (ErrorHandle | ClassNotFoundException | SQLException e)
         {
+            FileWriter arq = new FileWriter("erroLog.txt", true);
+            arq.write(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " - " + e + " (Apagar)(Vendedores)\n");
+            arq.flush();
+            arq.close();
             throw new ErrorHandle("Falha na exclusao de Vendedor \n " + e);
         }
         finally
@@ -137,7 +160,7 @@ public class Vendedores
         }
     }
     
-    public static ResultSet listaVendedores() throws ErrorHandle
+    public static ResultSet listaVendedores() throws ErrorHandle, IOException
     {
         retorno = null;
         try
@@ -146,6 +169,10 @@ public class Vendedores
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
+            FileWriter arq = new FileWriter("erroLog.txt", true);
+            arq.write(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " - " + e + " (listaVendedores)(Vendedores)\n");
+            arq.flush();
+            arq.close();
             throw new ErrorHandle("Falha na pesquisa pelo Nome do Vendedor");
         }
         return retorno;
