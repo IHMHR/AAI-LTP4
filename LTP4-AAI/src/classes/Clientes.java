@@ -2,9 +2,12 @@ package classes;
 
 import banco.Banco;
 import erro.ErrorHandle;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
@@ -166,7 +169,7 @@ public class Clientes
         Clientes.dataCadCliente = dataCadCliente;
     }
     
-    public ResultSet pesquisaPeloCod() throws ErrorHandle
+    public ResultSet pesquisaPeloCod() throws ErrorHandle, IOException
     {
         retorno = null;
         try
@@ -175,12 +178,16 @@ public class Clientes
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
+            FileWriter arq = new FileWriter("erroLog.txt", true);
+            arq.write(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " - " + e + " (pesquisaPeloCod)(Clientes)\n");
+            arq.flush();
+            arq.close();
             throw new ErrorHandle("Falha na pesquisa pelo Código do Cliente");
         }
         return retorno;
     }
     
-    public ResultSet pesquisaPeloNome() throws ErrorHandle
+    public ResultSet pesquisaPeloNome() throws ErrorHandle, IOException
     {
         retorno = null;
         try
@@ -189,12 +196,16 @@ public class Clientes
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
+            FileWriter arq = new FileWriter("erroLog.txt", true);
+            arq.write(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " - " + e + " (pesquisaPeloNome)(Clientes)\n");
+            arq.flush();
+            arq.close();
             throw new ErrorHandle("Falha na pesquisa pelo Nome do Cliente");
         }
         return retorno;
     }
     
-    public void Inserir() throws ErrorHandle
+    public void Inserir() throws ErrorHandle, IOException
     {
         try
         {
@@ -203,11 +214,15 @@ public class Clientes
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
+            FileWriter arq = new FileWriter("erroLog.txt", true);
+            arq.write(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " - " + e + " (Inserir)(Clientes)\n");
+            arq.flush();
+            arq.close();
             throw new ErrorHandle("Falha ao inserir novo Cliente");
         }
     }
     
-    public void Alterar() throws ErrorHandle
+    public void Alterar() throws ErrorHandle, IOException
     {
         try
         {
@@ -215,11 +230,15 @@ public class Clientes
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
+            FileWriter arq = new FileWriter("erroLog.txt", true);
+            arq.write(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " - " + e + " (Alterar)(Clientes)\n");
+            arq.flush();
+            arq.close();
             throw new ErrorHandle("Falha ao alterar Cliente");
         }
     }
     
-    public void Apagar() throws ErrorHandle
+    public void Apagar() throws ErrorHandle, IOException
     {
         retorno = null;
         try
@@ -234,6 +253,10 @@ public class Clientes
         }
         catch (ErrorHandle | ClassNotFoundException | SQLException e)
         {
+            FileWriter arq = new FileWriter("erroLog.txt", true);
+            arq.write(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " - " + e + " (Apagar)(Clientes)\n");
+            arq.flush();
+            arq.close();
             throw new ErrorHandle("Falha ao apagar novo Cliente");
         }
         finally
@@ -242,7 +265,7 @@ public class Clientes
         }
     }
     
-    public ResultSet EstatisticaVendasCliente()
+    public ResultSet EstatisticaVendasCliente() throws IOException
     {
         retorno = null;
         try
@@ -251,12 +274,16 @@ public class Clientes
         }
         catch (Exception e)
         {
+            FileWriter arq = new FileWriter("erroLog.txt", true);
+            arq.write(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " - " + e + " (EstatisticaVendasCliente)(Clientes)\n");
+            arq.flush();
+            arq.close();
             // TO-DO
         }
         return retorno;
     }
     
-    public static ResultSet listaClientes() throws ErrorHandle
+    public static ResultSet listaClientes() throws ErrorHandle, IOException
     {
         retorno = null;
         try
@@ -265,6 +292,10 @@ public class Clientes
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
+            FileWriter arq = new FileWriter("erroLog.txt", true);
+            arq.write(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " - " + e + " (listaClientes)(Clientes)\n");
+            arq.flush();
+            arq.close();
             throw new ErrorHandle("Falha ao listar Clientes");
         }
         return retorno;
