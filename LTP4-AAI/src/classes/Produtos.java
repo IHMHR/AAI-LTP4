@@ -2,9 +2,12 @@ package classes;
 
 import banco.Banco;
 import erro.ErrorHandle;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
@@ -92,7 +95,7 @@ public class Produtos
     }
     
     
-    public ResultSet PesquisaPeloCod() throws ErrorHandle
+    public ResultSet PesquisaPeloCod() throws ErrorHandle, IOException
     {
         retorno = null;
         try
@@ -101,12 +104,16 @@ public class Produtos
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
+            FileWriter arq = new FileWriter("erroLog.txt", true);
+            arq.write(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " - " + e + " (PesquisaPeloCod)(Produtos)\n");
+            arq.flush();
+            arq.close();
             throw new ErrorHandle("Falha ao realizar a pesquisa pelo Código");
         }
         return retorno;
     }
     
-    public ResultSet PesquisaPeloNome() throws ErrorHandle
+    public ResultSet PesquisaPeloNome() throws ErrorHandle, IOException
     {
         retorno = null;
         try
@@ -115,12 +122,16 @@ public class Produtos
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
+            FileWriter arq = new FileWriter("erroLog.txt", true);
+            arq.write(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " - " + e + " (PesquisaPeloNome)(Produtos)\n");
+            arq.flush();
+            arq.close();
             throw new ErrorHandle("Falha ao realizar a pesquisa pelo Nome");
         }
         return retorno;
     }
     
-    public void Inserir() throws ErrorHandle
+    public void Inserir() throws ErrorHandle, IOException
     {
         try
         {
@@ -129,11 +140,15 @@ public class Produtos
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
+            FileWriter arq = new FileWriter("erroLog.txt", true);
+            arq.write(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " - " + e + " (Inserir)(Produtos)\n");
+            arq.flush();
+            arq.close();
             throw new ErrorHandle("Falha ao inserir novo Produto");
         }
     }
     
-    public void Alterar() throws ErrorHandle
+    public void Alterar() throws ErrorHandle, IOException
     {
         try
         {
@@ -141,11 +156,15 @@ public class Produtos
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
+            FileWriter arq = new FileWriter("erroLog.txt", true);
+            arq.write(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " - " + e + " (Alterar)(Produtos)\n");
+            arq.flush();
+            arq.close();
             throw new ErrorHandle("Falha ao alterar Produto");
         }
     }
     
-    public void Apagar() throws ErrorHandle
+    public void Apagar() throws ErrorHandle, IOException
     {
         retorno = null;
         try
@@ -160,11 +179,15 @@ public class Produtos
         }
         catch (ErrorHandle | ClassNotFoundException | SQLException e)
         {
+            FileWriter arq = new FileWriter("erroLog.txt", true);
+            arq.write(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " - " + e + " (Apagar)(Produtos)\n");
+            arq.flush();
+            arq.close();
             throw new ErrorHandle("Falha ao excluir Produto");
         }
     }
     
-    public ResultSet RelacaoProdutos() throws ErrorHandle
+    public ResultSet RelacaoProdutos() throws ErrorHandle, IOException
     {
         retorno = null;
         try
@@ -173,12 +196,16 @@ public class Produtos
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
+            FileWriter arq = new FileWriter("erroLog.txt", true);
+            arq.write(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " - " + e + " (RelacaoProdutos)(Produtos)\n");
+            arq.flush();
+            arq.close();
             throw new ErrorHandle("Falha ao gerar relação de Produtos");
         }
         return retorno;
     }
     
-    public static ResultSet listaProdutos() throws ErrorHandle
+    public static ResultSet listaProdutos() throws ErrorHandle, IOException
     {
         retorno = null;
         try
@@ -187,6 +214,10 @@ public class Produtos
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
+            FileWriter arq = new FileWriter("erroLog.txt", true);
+            arq.write(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " - " + e + " (listaProdutos)(Produtos)\n");
+            arq.flush();
+            arq.close();
             throw new ErrorHandle("Falha ao listar Produtos" + e);
         }
         return retorno;
