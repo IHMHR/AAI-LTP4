@@ -2,7 +2,11 @@ package classes;
 
 import banco.Banco;
 import erro.ErrorHandle;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  * @version 1.0
@@ -43,7 +47,7 @@ public class Uf
         estado = aEstado;
     }
     
-    public static ResultSet listaEstados() throws ErrorHandle
+    public static ResultSet listaEstados() throws ErrorHandle, IOException
     {
         retorno = null;
         try
@@ -52,6 +56,10 @@ public class Uf
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
+            FileWriter arq = new FileWriter("erroLog.txt", true);
+            arq.write(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " - " + e + " (listaEstados)(Uf)\n");
+            arq.flush();
+            arq.close();
             throw new ErrorHandle("Falha ao listar estados " + e.getMessage());
         }
         return retorno;
