@@ -11,6 +11,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Calendar;
 import javax.swing.JOptionPane;
 import usuario.MainPage;
 import utilitarios.LtpUtil;
@@ -181,10 +182,10 @@ public class AltProduto extends javax.swing.JFrame {
             {
                 Produtos pro = new Produtos();
                 pro.setCodProduto(Integer.parseInt((String) jTable1.getValueAt(jTable1.getSelectedRow(), 0)));
-                pro.setCodUnidade(0);
-                pro.setDataPreco(Date.valueOf(LocalDate.MAX));
-                pro.setPrecoUnidade(0);
-                pro.setProduto("");
+                pro.setCodUnidade(Integer.parseInt((String) jTable1.getValueAt(jTable1.getSelectedRow(), 2)));
+                pro.setDataPreco(new Date(Calendar.getInstance().getTime().getTime()));
+                pro.setPrecoUnidade(Integer.parseInt((String) jTable1.getValueAt(jTable1.getSelectedRow(), 3)));
+                pro.setProduto((String) jTable1.getValueAt(jTable1.getSelectedRow(), 1));
                 pro.Alterar();
                 JOptionPane.showMessageDialog(null, "Alteração do cliente realizada com sucesso.", "Alterar cliente com sucesso", 3);
                 fillTable();
