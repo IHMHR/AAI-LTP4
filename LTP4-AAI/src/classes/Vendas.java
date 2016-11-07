@@ -2,8 +2,11 @@ package classes;
 
 import banco.Banco;
 import erro.ErrorHandle;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
 
@@ -76,7 +79,7 @@ public class Vendas
         dataVenda = aDataVenda;
     }
 
-    public ResultSet PesquisaPeloCod() throws ErrorHandle
+    public ResultSet PesquisaPeloCod() throws ErrorHandle, IOException
     {
         retorno = null;
         try
@@ -85,12 +88,16 @@ public class Vendas
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
+            FileWriter arq = new FileWriter("erroLog.txt", true);
+            arq.write(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " - " + e + " (PesquisaPeloCod)(Vendas)\n");
+            arq.flush();
+            arq.close();
             throw new ErrorHandle("Falha na pesquisa pelo Código");
         }
         return retorno;
     }
     
-    public void Inserir() throws ErrorHandle
+    public void Inserir() throws ErrorHandle, IOException
     {
         try
         {
@@ -99,11 +106,15 @@ public class Vendas
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
+            FileWriter arq = new FileWriter("erroLog.txt", true);
+            arq.write(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " - " + e + " (Inserir)(Vendas)\n");
+            arq.flush();
+            arq.close();
             throw new ErrorHandle("Falha na inserção de nova Venda");
         }
     }
     
-    public ResultSet InserirComRetorno() throws ErrorHandle
+    public ResultSet InserirComRetorno() throws ErrorHandle, IOException
     {
         retorno = null;
         try
@@ -113,12 +124,16 @@ public class Vendas
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
+            FileWriter arq = new FileWriter("erroLog.txt", true);
+            arq.write(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " - " + e + " (InserirComRetorno)(Vendas)\n");
+            arq.flush();
+            arq.close();
             throw new ErrorHandle("Falha na inserção de nova Venda " + e);
         }
         return retorno;
     }
     
-    public void Alterar() throws ErrorHandle
+    public void Alterar() throws ErrorHandle, IOException
     {
         try
         {
@@ -126,11 +141,15 @@ public class Vendas
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
+            FileWriter arq = new FileWriter("erroLog.txt", true);
+            arq.write(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " - " + e + " (Alterar)(Vendas)\n");
+            arq.flush();
+            arq.close();
             throw new ErrorHandle("Falha na alteração de Venda");
         }
     }
     
-    public void Apagar() throws ErrorHandle
+    public void Apagar() throws ErrorHandle, IOException
     {
         try
         {
@@ -138,11 +157,15 @@ public class Vendas
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
+            FileWriter arq = new FileWriter("erroLog.txt", true);
+            arq.write(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " - " + e + " (Apagar)(Vendas)\n");
+            arq.flush();
+            arq.close();
             throw new ErrorHandle("Falha na exclusão de Venda");
         }
     }
     
-    public ResultSet ConsultaPeloPeriodoVendas(String dataComeco, String dataFinal) throws ErrorHandle
+    public ResultSet ConsultaPeloPeriodoVendas(String dataComeco, String dataFinal) throws ErrorHandle, IOException
     {
         retorno = null;
         try
@@ -155,12 +178,16 @@ public class Vendas
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
+            FileWriter arq = new FileWriter("erroLog.txt", true);
+            arq.write(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " - " + e + " (ConsultaPeloPeriodoVendas(String dataComeco, String dataFinal))(Vendas)\n");
+            arq.flush();
+            arq.close();
             throw new ErrorHandle("Falha ao gerar relatório pelo Período de vendas");
         }
         return retorno;
     }
     
-    public static ResultSet listaVendas() throws ErrorHandle
+    public static ResultSet listaVendas() throws ErrorHandle, IOException
     {
         retorno = null;
         try
@@ -169,6 +196,10 @@ public class Vendas
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
+            FileWriter arq = new FileWriter("erroLog.txt", true);
+            arq.write(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " - " + e + " (listaVendas)(Vendas)\n");
+            arq.flush();
+            arq.close();
             throw new ErrorHandle("Falha ao gerar relatório pelo Período de vendas");
         }
         return retorno;
