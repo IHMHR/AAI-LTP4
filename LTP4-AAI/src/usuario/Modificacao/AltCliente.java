@@ -9,6 +9,7 @@ import classes.Clientes;
 import erro.ErrorHandle;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 import usuario.MainPage;
 import utilitarios.LtpUtil;
@@ -17,7 +18,9 @@ import utilitarios.LtpUtil;
  *
  * @author jannsen
  */
-public class AltCliente extends javax.swing.JFrame {
+public class AltCliente extends javax.swing.JFrame
+{
+    private static HashMap<String, String> estados;
 
     /**
      * Creates new form AltCliente
@@ -127,8 +130,13 @@ public class AltCliente extends javax.swing.JFrame {
     {
         try
         {
+            estados = new HashMap<>();
             ResultSet res = Clientes.listaClientes();
             LtpUtil.loadFormatJTable(jTable1, res, true);
+            while(res.next())
+            {
+                 estados.put(res.getString(2), res.getString(1));
+            }
         }
         catch (ErrorHandle | SQLException e)
         {
@@ -150,14 +158,14 @@ public class AltCliente extends javax.swing.JFrame {
             {
                 Clientes cli = new Clientes();
                 cli.setCodCliente(Integer.parseInt((String) jTable1.getValueAt(jTable1.getSelectedRow(), 0)));
-                cli.setNome("");
-                cli.setBairro("");
-                cli.setCep("");
-                cli.setCidade("");
-                cli.setEmail("");
-                cli.setEndereco("");
-                cli.setTelefone("");
-                cli.setUf("");
+                cli.setNome((String) jTable1.getValueAt(jTable1.getSelectedRow(), 1));
+                cli.setBairro((String) jTable1.getValueAt(jTable1.getSelectedRow(), 3));
+                cli.setCep((String) jTable1.getValueAt(jTable1.getSelectedRow(), 6));
+                cli.setCidade((String) jTable1.getValueAt(jTable1.getSelectedRow(), 4));
+                cli.setEmail((String) jTable1.getValueAt(jTable1.getSelectedRow(), 8));
+                cli.setEndereco((String) jTable1.getValueAt(jTable1.getSelectedRow(), 2));
+                cli.setTelefone((String) jTable1.getValueAt(jTable1.getSelectedRow(), 7));
+                cli.setUf(estados.get((String) jTable1.getValueAt(jTable1.getSelectedRow(), 5)));
                 cli.Alterar();
                 JOptionPane.showMessageDialog(null, "Alteração do cliente realizada com sucesso.", "Alterar cliente com sucesso", 3);
                 fillTable();
