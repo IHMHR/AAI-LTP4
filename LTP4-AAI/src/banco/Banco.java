@@ -1,11 +1,16 @@
 package banco;
 
 import erro.ErrorHandle;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import org.firebirdsql.jdbc.FBDriver;
 
 /**
@@ -28,7 +33,7 @@ public abstract class Banco
      * @throws SQLException
      * @throws ClassNotFoundException
      */
-    private static void AbrirConexao() throws SQLException, ErrorHandle, ClassNotFoundException
+    private static void AbrirConexao() throws SQLException, ErrorHandle, ClassNotFoundException, IOException
     {
         try
         {
@@ -41,6 +46,10 @@ public abstract class Banco
         }
         catch (SQLException erro)
         {
+            FileWriter arq = new FileWriter("erroLog.txt", true);
+            arq.write(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " - " + erro + " (AbrirConexao)\n");
+            arq.flush();
+            arq.close();
             throw new erro.ErrorHandle("Falha na realizar a abertura da conexão");
         }
     }
@@ -50,7 +59,7 @@ public abstract class Banco
      * @throws SQLException
      * @throws ClassNotFoundException
      */
-    private static void FecharConexao() throws SQLException, ErrorHandle, ClassNotFoundException
+    private static void FecharConexao() throws SQLException, ErrorHandle, ClassNotFoundException, IOException
     {
         try
         {
@@ -61,6 +70,10 @@ public abstract class Banco
         }
         catch (SQLException erro)
         {
+            FileWriter arq = new FileWriter("erroLog.txt", true);
+            arq.write(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " - " + erro + " (FecharConexao)\n");
+            arq.flush();
+            arq.close();
             throw new erro.ErrorHandle("Falha na realizar a abertura ou fechamento da conexão");
         }
     }
@@ -71,8 +84,9 @@ public abstract class Banco
      * @param values
      * @throws erro.ErrorHandle
      * @throws java.lang.ClassNotFoundException
+     * @throws java.io.IOException
      */
-    public static void Inserir(String table, String values) throws ErrorHandle, ClassNotFoundException
+    public static void Inserir(String table, String values) throws ErrorHandle, ClassNotFoundException, IOException
     {
         if(table.isEmpty() || values.isEmpty())
         {
@@ -87,6 +101,10 @@ public abstract class Banco
         }
         catch (SQLException erro)
         {
+            FileWriter arq = new FileWriter("erroLog.txt", true);
+            arq.write(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " - " + erro + " (Inserir(String table, String values))\n");
+            arq.flush();
+            arq.close();
             throw new erro.ErrorHandle("Falha ao realizar a inserção de dados na tabela " + table);
         }
     }
@@ -98,8 +116,9 @@ public abstract class Banco
      * @param values
      * @throws erro.ErrorHandle
      * @throws java.lang.ClassNotFoundException
+     * @throws java.io.IOException
      */
-    public static void Inserir(String table, String fields, String values) throws ErrorHandle, ClassNotFoundException
+    public static void Inserir(String table, String fields, String values) throws ErrorHandle, ClassNotFoundException, IOException
     {
         if(table.isEmpty() || values.isEmpty())
         {
@@ -115,6 +134,10 @@ public abstract class Banco
         }
         catch (SQLException erro)
         {
+            FileWriter arq = new FileWriter("erroLog.txt", true);
+            arq.write(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " - " + erro + " (Inserir(String table, String fields, String values))\n");
+            arq.flush();
+            arq.close();
             throw new erro.ErrorHandle("Falha ao realizar a inserção de dados na tabela " + table);
         }
     }
@@ -126,8 +149,9 @@ public abstract class Banco
      * @return ResultSet retorno
      * @throws erro.ErrorHandle
      * @throws java.lang.ClassNotFoundException
+     * @throws java.io.IOException
      */
-    public static ResultSet InserirComRetorno(String table, String values) throws ErrorHandle, ClassNotFoundException
+    public static ResultSet InserirComRetorno(String table, String values) throws ErrorHandle, ClassNotFoundException, IOException
     {
         if(table.isEmpty() || values.isEmpty())
         {
@@ -144,6 +168,10 @@ public abstract class Banco
         }
         catch (SQLException erro)
         {
+            FileWriter arq = new FileWriter("erroLog.txt", true);
+            arq.write(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " - " + erro + " (InserirComRetorno(String table, String values))\n");
+            arq.flush();
+            arq.close();
             throw new erro.ErrorHandle("Falha ao realizar a inserção de dados na tabela " + table);
         }
         return retorno;
@@ -157,8 +185,9 @@ public abstract class Banco
      * @return ResultSet retorno
      * @throws erro.ErrorHandle
      * @throws java.lang.ClassNotFoundException
+     * @throws java.io.IOException
      */
-    public static ResultSet InserirComRetorno(String table, String fields, String values) throws ErrorHandle, ClassNotFoundException
+    public static ResultSet InserirComRetorno(String table, String fields, String values) throws ErrorHandle, ClassNotFoundException, IOException
     {
         if(table.isEmpty() || values.isEmpty())
         {
@@ -176,8 +205,11 @@ public abstract class Banco
         }
         catch (SQLException erro)
         {
-            throw new erro.ErrorHandle("Seguinte erro: " + erro);
-            //throw new erro.ErrorHandle("Falha ao realizar a inserção de dados na tabela " + table);
+            FileWriter arq = new FileWriter("erroLog.txt", true);
+            arq.write(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " - " + erro + " (InserirComRetorno(String table, String fields, String values))\n");
+            arq.flush();
+            arq.close();
+            throw new erro.ErrorHandle("Falha ao realizar a inserção de dados na tabela " + table);
         }
         return retorno;
     }
@@ -188,8 +220,9 @@ public abstract class Banco
      * @param condition
      * @throws erro.ErrorHandle
      * @throws java.lang.ClassNotFoundException
+     * @throws java.io.IOException
      */
-    public static void Apagar(String table, String condition) throws ErrorHandle, ClassNotFoundException
+    public static void Apagar(String table, String condition) throws ErrorHandle, ClassNotFoundException, IOException
     {
         if(table.isEmpty() || condition.isEmpty())
         {
@@ -206,6 +239,10 @@ public abstract class Banco
         }
         catch (SQLException erro)
         {
+            FileWriter arq = new FileWriter("erroLog.txt", true);
+            arq.write(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " - " + erro + " (Apagar(String table, String condition))\n");
+            arq.flush();
+            arq.close();
             throw new erro.ErrorHandle("Falha ao realizar a deleção de dados na tabela " + table);
         }
     }
@@ -217,8 +254,9 @@ public abstract class Banco
      * @return ResultSet retorno
      * @throws erro.ErrorHandle
      * @throws java.lang.ClassNotFoundException
+     * @throws java.io.IOException
      */
-    public static ResultSet Selecionar(String columns, String table) throws ErrorHandle, ClassNotFoundException
+    public static ResultSet Selecionar(String columns, String table) throws ErrorHandle, ClassNotFoundException, IOException
     {
         if(table.isEmpty() || columns.isEmpty())
         {
@@ -235,6 +273,10 @@ public abstract class Banco
         }
         catch (SQLException erro)
         {
+            FileWriter arq = new FileWriter("erroLog.txt", true);
+            arq.write(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " - " + erro + " (Selecionar(String columns, String table))\n");
+            arq.flush();
+            arq.close();
             throw new erro.ErrorHandle("Falha ao realizar a seleção de dados na tabela " + table + "\n" + erro);
         }
         return retorno;
@@ -248,8 +290,9 @@ public abstract class Banco
      * @return ResultSet retorno
      * @throws erro.ErrorHandle
      * @throws java.lang.ClassNotFoundException
+     * @throws java.io.IOException
      */
-    public static ResultSet Selecionar(String columns, String table, String condition) throws ErrorHandle, ClassNotFoundException
+    public static ResultSet Selecionar(String columns, String table, String condition) throws ErrorHandle, ClassNotFoundException, IOException, IOException, IOException
     {
         if(table.isEmpty() || columns.isEmpty() || condition.isEmpty())
         {
@@ -266,6 +309,10 @@ public abstract class Banco
         }
         catch (SQLException erro)
         {
+            FileWriter arq = new FileWriter("erroLog.txt", true);
+            arq.write(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " - " + erro + " (Selecionar(String columns, String table, String condition))\n");
+            arq.flush();
+            arq.close();
             throw new erro.ErrorHandle("Falha ao realizar a seleção de dados na tabela " + table);
         }
         return retorno;
@@ -278,8 +325,9 @@ public abstract class Banco
      * @param condition
      * @throws erro.ErrorHandle
      * @throws java.lang.ClassNotFoundException
+     * @throws java.io.IOException
      */
-    public static void Alterar(String table, String fieldsNvalues, String condition) throws ErrorHandle, ClassNotFoundException            
+    public static void Alterar(String table, String fieldsNvalues, String condition) throws ErrorHandle, ClassNotFoundException, IOException            
     {
         if(table.isEmpty() || fieldsNvalues.isEmpty() || condition.isEmpty())
         {
@@ -294,6 +342,10 @@ public abstract class Banco
         }
         catch (SQLException erro)
         {
+            FileWriter arq = new FileWriter("erroLog.txt", true);
+            arq.write(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " - " + erro + " (Alterar(String table, String fieldsNvalues, String condition))\n");
+            arq.flush();
+            arq.close();
             throw new erro.ErrorHandle("Falha ao realizar a alteração de dados na tabela " + table);
         }
     }
