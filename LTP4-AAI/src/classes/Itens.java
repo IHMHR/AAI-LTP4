@@ -2,7 +2,11 @@ package classes;
 
 import banco.Banco;
 import erro.ErrorHandle;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  * @version 1.0
@@ -88,7 +92,7 @@ public class Itens
         valor = aValor;
     }
     
-    public void AdicioarItemVenda() throws ErrorHandle
+    public void AdicioarItemVenda() throws ErrorHandle, IOException
     {
         try
         {
@@ -96,6 +100,10 @@ public class Itens
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
+            FileWriter arq = new FileWriter("erroLog.txt", true);
+            arq.write(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " - " + e + " (AdicioarItemVenda)(Itens)\n");
+            arq.flush();
+            arq.close();
             throw new ErrorHandle("Falha na inserção de novo Item");
         }
     }
