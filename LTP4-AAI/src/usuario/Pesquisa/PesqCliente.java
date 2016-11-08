@@ -3,6 +3,7 @@ package usuario.Pesquisa;
 import classes.Clientes;
 import erro.ErrorHandle;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -161,7 +162,7 @@ public class PesqCliente extends javax.swing.JFrame
                 LtpUtil.loadFormatJTable(jTable1, pesq, true);
             }
         }
-        catch (NumberFormatException | ErrorHandle | SQLException e)
+        catch (NumberFormatException | ErrorHandle | SQLException | IOException e)
         {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Falha na pesquisa", 0);
         }
@@ -203,7 +204,7 @@ public class PesqCliente extends javax.swing.JFrame
                         LtpUtil.loadFormatJTable(jTable1, pesq, true);
                     }
                 }
-                catch (NumberFormatException | ErrorHandle | SQLException e)
+                catch (NumberFormatException | ErrorHandle | SQLException | IOException e)
                 {
                     JOptionPane.showMessageDialog(null, e.getMessage(), "Falha na pesquisa", 0);
                 }

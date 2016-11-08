@@ -8,6 +8,7 @@ package usuario.Pesquisa;
 import classes.Vendas;
 import erro.ErrorHandle;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -127,7 +128,7 @@ public class PesqVenda extends javax.swing.JFrame {
             ResultSet pesq = v.PesquisaPeloCod();
             LtpUtil.loadFormatJTable(jTable1, pesq, true);
         }
-        catch (ErrorHandle | NumberFormatException | SQLException e)
+        catch (ErrorHandle | NumberFormatException | SQLException | IOException e)
         {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Falha na pesquisa", 0);
         }
@@ -154,7 +155,7 @@ public class PesqVenda extends javax.swing.JFrame {
                     ResultSet pesq = v.PesquisaPeloCod();
                     LtpUtil.loadFormatJTable(jTable1, pesq, true);
                 }
-                catch (ErrorHandle | NumberFormatException | SQLException e)
+                catch (ErrorHandle | NumberFormatException | SQLException | IOException e)
                 {
                     JOptionPane.showMessageDialog(null, e.getMessage(), "Falha na pesquisa", 0);
                 }
