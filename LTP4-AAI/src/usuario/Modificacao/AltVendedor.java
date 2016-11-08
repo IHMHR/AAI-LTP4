@@ -7,6 +7,7 @@ package usuario.Modificacao;
 
 import classes.Vendedores;
 import erro.ErrorHandle;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -133,7 +134,7 @@ public class AltVendedor extends javax.swing.JFrame {
             ResultSet res = Vendedores.listaVendedores();
             LtpUtil.loadFormatJTable(jTable1, res, true);
         }
-        catch (ErrorHandle | SQLException e)
+        catch (ErrorHandle | SQLException | IOException e)
         {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Falha na pesquisa", 0);
             jButton1.setEnabled(false);
@@ -160,7 +161,7 @@ public class AltVendedor extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Vendedor excluido com sucesso !", "Excluido com sucesso", 0);
                     fillTable();
                 }
-                catch (ErrorHandle | NumberFormatException e)
+                catch (ErrorHandle | NumberFormatException | IOException e)
                 {
                     JOptionPane.showMessageDialog(null, e.getMessage(), "Falha ao excluir", 0);
                 }
@@ -185,7 +186,7 @@ public class AltVendedor extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Alteração do vendedor realizada com sucesso.", "Alterar vendedor com sucesso", 3);
                 fillTable();
             }
-            catch (NumberFormatException | ErrorHandle e)
+            catch (NumberFormatException | ErrorHandle | IOException e)
             {
                 JOptionPane.showMessageDialog(null, e.getMessage(), "Falha ao alterar vendedor", 0);
             }

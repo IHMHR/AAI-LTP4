@@ -7,6 +7,7 @@ package usuario.Modificacao;
 
 import classes.Produtos;
 import erro.ErrorHandle;
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -140,7 +141,7 @@ public class AltProduto extends javax.swing.JFrame {
             ResultSet res = Produtos.listaProdutos();
             LtpUtil.loadFormatJTable(jTable1, res, true);
         }
-        catch (ErrorHandle | SQLException e)
+        catch (ErrorHandle | SQLException | IOException e)
         {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Falha na pesquisa", 0);
             jButton1.setEnabled(false);
@@ -162,7 +163,7 @@ public class AltProduto extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Produto excluido com sucesso !", "Excluido com sucesso", 3);
                     fillTable();
                 }
-                catch (ErrorHandle | NumberFormatException e)
+                catch (ErrorHandle | NumberFormatException | IOException e)
                 {
                     JOptionPane.showMessageDialog(null, e.getMessage(), "Falha ao excluir", 0);
                 }
@@ -190,7 +191,7 @@ public class AltProduto extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Alteração do cliente realizada com sucesso.", "Alterar cliente com sucesso", 3);
                 fillTable();
             }
-            catch (NumberFormatException | ErrorHandle e)
+            catch (NumberFormatException | ErrorHandle | IOException e)
             {
                 JOptionPane.showMessageDialog(null, e.getMessage(), "Falha ao alterar cliente", 0);
             }

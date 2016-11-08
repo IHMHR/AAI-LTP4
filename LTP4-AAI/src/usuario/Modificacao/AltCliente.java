@@ -7,6 +7,7 @@ package usuario.Modificacao;
 
 import classes.Clientes;
 import erro.ErrorHandle;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -138,7 +139,7 @@ public class AltCliente extends javax.swing.JFrame
                  estados.put(res.getString(2), res.getString(1));
             }
         }
-        catch (ErrorHandle | SQLException e)
+        catch (ErrorHandle | SQLException | IOException e)
         {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Falha na pesquisa", 0);
             jButton1.setEnabled(false);
@@ -170,7 +171,7 @@ public class AltCliente extends javax.swing.JFrame
                 JOptionPane.showMessageDialog(null, "Alteração do cliente realizada com sucesso.", "Alterar cliente com sucesso", 3);
                 fillTable();
             }
-            catch (NumberFormatException | ErrorHandle e)
+            catch (NumberFormatException | ErrorHandle | IOException e)
             {
                 JOptionPane.showMessageDialog(null, e.getMessage(), "Falha ao alterar cliente", 0);
             }
@@ -200,7 +201,7 @@ public class AltCliente extends javax.swing.JFrame
                     JOptionPane.showMessageDialog(null, "Cliente excluido com sucesso !", "Excluido com sucesso", 3);
                     fillTable();
                 }
-                catch (ErrorHandle | NumberFormatException e)
+                catch (ErrorHandle | NumberFormatException | IOException e)
                 {
                     JOptionPane.showMessageDialog(null, e.getMessage(), "Falha ao excluir", 0);
                 }
