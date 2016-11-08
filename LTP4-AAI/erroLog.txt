@@ -1,6 +1,6 @@
-2016-11-07 18:01:53 - org.firebirdsql.jdbc.FBSQLException: GDS Exception. 335544721. Unable to complete network request to host "server1b".
+2016-11-08 15:43:11 - org.firebirdsql.jdbc.FBSQLException: GDS Exception. 335544721. Unable to complete network request to host "server1b".
 Reason: Unable to complete network request to host "server1b". (AbrirConexao)
-2016-11-07 18:01:56 - org.firebirdsql.jdbc.FBSQLException: GDS Exception. 335544721. Unable to complete network request to host "server1b".
+2016-11-08 15:43:11 - erro.ErrorHandle: Falha na realizar a abertura da conexão (listaClientes)(Clientes)
+2016-11-08 15:47:53 - org.firebirdsql.jdbc.FBSQLException: GDS Exception. 335544721. Unable to complete network request to host "server1b".
 Reason: Unable to complete network request to host "server1b". (AbrirConexao)
-2016-11-07 18:02:02 - org.firebirdsql.jdbc.FBSQLException: GDS Exception. 335544721. Unable to complete network request to host "server1b".
-Reason: Unable to complete network request to host "server1b". (AbrirConexao)
+2016-11-08 15:47:53 - erro.ErrorHandle: Falha na realizar a abertura da conexão (PesquisaPeloNome)(Vendedores)
