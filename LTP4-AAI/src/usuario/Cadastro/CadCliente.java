@@ -3,9 +3,12 @@ package usuario.Cadastro;
 import classes.Clientes;
 import classes.Uf;
 import erro.ErrorHandle;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import usuario.MainPage;
@@ -20,8 +23,9 @@ public class CadCliente extends javax.swing.JFrame
 
     /**
      * Creates new form CadCliente
+     * @throws java.io.IOException
      */
-    public CadCliente()
+    public CadCliente() throws IOException
     {
         initComponents();
         
@@ -271,7 +275,7 @@ public class CadCliente extends javax.swing.JFrame
                 cli.setUf(estadosUF.get(jComboBox1.getSelectedItem()));
                 cli.Inserir();
             }
-            catch (ErrorHandle | NumberFormatException e)
+            catch (ErrorHandle | NumberFormatException | IOException e)
             {
                 JOptionPane.showMessageDialog(null, e.getMessage(), "Erro ao salvar Cliente", 0);
             }
@@ -314,7 +318,14 @@ public class CadCliente extends javax.swing.JFrame
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new CadCliente().setVisible(true);
+                try
+                {
+                    new CadCliente().setVisible(true);
+                }
+                catch (IOException ex)
+                {
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro ao abrir tela de Cadastro Cliente", 0);
+                }
             }
         });
     }

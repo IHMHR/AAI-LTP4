@@ -2,6 +2,7 @@ package usuario.Cadastro;
 
 import classes.Vendedores;
 import erro.ErrorHandle;
+import java.io.IOException;
 import javax.swing.JOptionPane;
 import usuario.MainPage;
 
@@ -131,7 +132,7 @@ public class CadVendedor extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Cadastrado com sucesso !");
                 jTextField1.setText("");
             }
-            catch (ErrorHandle e)
+            catch (ErrorHandle | IOException e)
             {
                 JOptionPane.showMessageDialog(null, e.getMessage(), "Erro ao salvar Vendedor", 0);
             }

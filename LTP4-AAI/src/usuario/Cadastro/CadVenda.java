@@ -2,6 +2,7 @@ package usuario.Cadastro;
 
 import classes.*;
 import erro.ErrorHandle;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -293,7 +294,7 @@ public class CadVenda extends javax.swing.JFrame
             }
             cmbProduto.setModel(combo);
         }
-        catch (ErrorHandle | SQLException e)
+        catch (ErrorHandle | SQLException | IOException e)
         {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Falha ao popular ComboBoxes", 0);
             txtQuantidade.setEnabled(false);
@@ -349,7 +350,7 @@ public class CadVenda extends javax.swing.JFrame
                 it.AdicioarItemVenda();
             }
         }
-        catch (ErrorHandle | SQLException e)
+        catch (ErrorHandle | SQLException | IOException e)
         {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Falha ao salvar venda", 0);
         }
@@ -395,7 +396,7 @@ public class CadVenda extends javax.swing.JFrame
             }
             QntProdutos.setText(String.valueOf(jTable1.getRowCount()));
         }
-        catch (ErrorHandle | SQLException e)
+        catch (ErrorHandle | SQLException | IOException e)
         {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Falha ao adicionar produto ao carrinho", 0);
         }

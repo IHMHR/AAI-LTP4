@@ -3,6 +3,7 @@ package usuario.Cadastro;
 import classes.Produtos;
 import classes.Unidade;
 import erro.ErrorHandle;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -175,7 +176,7 @@ public class CadProduto extends javax.swing.JFrame
                 jTextField3.setText("");
                 jTextField1.setText("");
             }
-            catch (ErrorHandle | NumberFormatException e)
+            catch (ErrorHandle | NumberFormatException | IOException e)
             {
                 JOptionPane.showMessageDialog(null, e.getMessage(), "Erro ao salvar Produto", HEIGHT);
             }
@@ -201,7 +202,7 @@ public class CadProduto extends javax.swing.JFrame
             
             jComboBox1.setModel(combo);
         }
-        catch (ErrorHandle | SQLException e)
+        catch (ErrorHandle | SQLException | IOException e)
         {
             JOptionPane.showMessageDialog(null, e.getMessage());
             jTextField1.setEnabled(false);
