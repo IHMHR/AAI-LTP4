@@ -337,6 +337,7 @@ public abstract class Banco
         try 
         {
             AbrirConexao();
+            System.out.println("UPDATE " + table + " SET " + fieldsNvalues + " WHERE " + condition);
             comando = conexao.prepareStatement("UPDATE " + table + " SET " + fieldsNvalues + " WHERE " + condition);
             comando.execute();
         }

@@ -6,6 +6,7 @@
 package usuario.Modificacao;
 
 import classes.Clientes;
+import classes.Uf;
 import erro.ErrorHandle;
 import java.io.IOException;
 import java.sql.ResultSet;
@@ -28,6 +29,7 @@ public class AltCliente extends javax.swing.JFrame
      */
     public AltCliente() {
         initComponents();
+        jButton2.setEnabled(false);
     }
 
     /**
@@ -65,6 +67,7 @@ public class AltCliente extends javax.swing.JFrame
             }
         ));
         jTable1.setToolTipText("");
+        jTable1.setEnabled(false);
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("Habilitar Alteração");
@@ -132,12 +135,13 @@ public class AltCliente extends javax.swing.JFrame
         try
         {
             estados = new HashMap<>();
-            ResultSet res = Clientes.listaClientes();
-            LtpUtil.loadFormatJTable(jTable1, res, true);
-            while(res.next())
+            ResultSet est = Uf.listaEstados();
+            while(est.next())
             {
-                 estados.put(res.getString(2), res.getString(1));
+                estados.put(est.getString(2), est.getString(1));
             }
+            ResultSet res = Clientes.listaClientes();
+            LtpUtil.loadFormatJTable(jTable1, res, true);            
         }
         catch (ErrorHandle | SQLException | IOException e)
         {
@@ -152,6 +156,7 @@ public class AltCliente extends javax.swing.JFrame
         {
             jTable1.setEnabled(true);
             jButton1.setText("Alterar");
+            jButton2.setEnabled(true);
         }
         else if(jButton1.getText().equals("Alterar"))
         {
@@ -159,13 +164,13 @@ public class AltCliente extends javax.swing.JFrame
             {
                 Clientes cli = new Clientes();
                 cli.setCodCliente(Integer.parseInt((String) jTable1.getValueAt(jTable1.getSelectedRow(), 0)));
-                cli.setNome((String) jTable1.getValueAt(jTable1.getSelectedRow(), 1));
-                cli.setBairro((String) jTable1.getValueAt(jTable1.getSelectedRow(), 3));
-                cli.setCep((String) jTable1.getValueAt(jTable1.getSelectedRow(), 6));
-                cli.setCidade((String) jTable1.getValueAt(jTable1.getSelectedRow(), 4));
-                cli.setEmail((String) jTable1.getValueAt(jTable1.getSelectedRow(), 8));
-                cli.setEndereco((String) jTable1.getValueAt(jTable1.getSelectedRow(), 2));
-                cli.setTelefone((String) jTable1.getValueAt(jTable1.getSelectedRow(), 7));
+                cli.setNome(((String) jTable1.getValueAt(jTable1.getSelectedRow(), 1)).replace("'", ""));
+                cli.setBairro(((String) jTable1.getValueAt(jTable1.getSelectedRow(), 3)).replace("'", ""));
+                cli.setCep(((String) jTable1.getValueAt(jTable1.getSelectedRow(), 6)).replace("'", ""));
+                cli.setCidade(((String) jTable1.getValueAt(jTable1.getSelectedRow(), 4)).replace("'", ""));
+                cli.setEmail(((String) jTable1.getValueAt(jTable1.getSelectedRow(), 8)).replace("'", ""));
+                cli.setEndereco(((String) jTable1.getValueAt(jTable1.getSelectedRow(), 2)).replace("'", ""));
+                cli.setTelefone(((String) jTable1.getValueAt(jTable1.getSelectedRow(), 7)).replace("'", ""));
                 cli.setUf(estados.get((String) jTable1.getValueAt(jTable1.getSelectedRow(), 5)));
                 cli.Alterar();
                 JOptionPane.showMessageDialog(null, "Alteração do cliente realizada com sucesso.", "Alterar cliente com sucesso", 3);
@@ -177,7 +182,8 @@ public class AltCliente extends javax.swing.JFrame
             }
             finally
             {
-                jTable1.setEnabled(true);
+                jTable1.setEnabled(false);
+                jButton2.setEnabled(false);
                 jButton1.setText("Habilitar Alteração");
             }
         }
@@ -204,6 +210,12 @@ public class AltCliente extends javax.swing.JFrame
                 catch (ErrorHandle | NumberFormatException | IOException e)
                 {
                     JOptionPane.showMessageDialog(null, e.getMessage(), "Falha ao excluir", 0);
+                }
+                finally
+                {
+                    jButton2.setEnabled(false);
+                    jButton1.setText("Habilitar Alteração");
+                    jTable1.setEnabled(false);
                 }
             }
         }

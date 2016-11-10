@@ -237,7 +237,7 @@ public class Clientes
             throw new ErrorHandle("Falha ao alterar Cliente");
         }
     }
-    
+
     public void Apagar() throws ErrorHandle, IOException
     {
         retorno = null;
@@ -248,7 +248,7 @@ public class Clientes
             {
                 throw new ErrorHandle("Não pode ser realizar a exclusão do cliente devido ao fato do mesmo já ter realizado compras.");
             }
-            
+
             Banco.Apagar(TABLE_NAME, "CodCliente = " + codCliente);
         }
         catch (ErrorHandle | ClassNotFoundException | SQLException e)
@@ -257,7 +257,15 @@ public class Clientes
             arq.write(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " - " + e + " (Apagar)(Clientes)\n");
             arq.flush();
             arq.close();
-            throw new ErrorHandle("Falha ao apagar novo Cliente");
+            
+            if(e.getMessage().startsWith("Não pode ser realizar a exclusão"))
+            {
+                throw new ErrorHandle(e.getMessage());
+            }
+            else
+            {
+                throw new ErrorHandle("Falha ao apagar Cliente");
+            }
         }
         finally
         {

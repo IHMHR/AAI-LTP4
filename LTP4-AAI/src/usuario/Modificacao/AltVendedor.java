@@ -25,6 +25,7 @@ public class AltVendedor extends javax.swing.JFrame {
      */
     public AltVendedor() {
         initComponents();
+        jButton2.setEnabled(false);
     }
 
     /**
@@ -165,6 +166,12 @@ public class AltVendedor extends javax.swing.JFrame {
                 {
                     JOptionPane.showMessageDialog(null, e.getMessage(), "Falha ao excluir", 0);
                 }
+                finally
+                {
+                    jButton2.setEnabled(false);
+                    jButton1.setText("Habilitar Alteração");
+                    jTable1.setEnabled(false);
+                }
             }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -173,6 +180,7 @@ public class AltVendedor extends javax.swing.JFrame {
         if(jButton1.getText().equals("Habilitar Alteração"))
         {
             jTable1.setEnabled(true);
+            jButton2.setEnabled(true);
             jButton1.setText("Alterar");
         }
         else if(jButton1.getText().equals("Alterar"))
@@ -192,7 +200,8 @@ public class AltVendedor extends javax.swing.JFrame {
             }
             finally
             {
-                jTable1.setEnabled(true);
+                jTable1.setEnabled(false);
+                jButton2.setEnabled(false);
                 jButton1.setText("Habilitar Alteração");
             }
         }

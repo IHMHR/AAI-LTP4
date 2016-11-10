@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
 import usuario.MainPage;
@@ -28,6 +27,7 @@ public class AltProduto extends javax.swing.JFrame {
      */
     public AltProduto() {
         initComponents();
+        jButton2.setEnabled(false);
     }
 
     /**
@@ -67,6 +67,7 @@ public class AltProduto extends javax.swing.JFrame {
 
             }
         ));
+        jTable1.setEnabled(false);
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("Habilitar Alteração");
@@ -167,6 +168,12 @@ public class AltProduto extends javax.swing.JFrame {
                 {
                     JOptionPane.showMessageDialog(null, e.getMessage(), "Falha ao excluir", 0);
                 }
+                finally
+                {
+                    jButton2.setEnabled(false);
+                    jButton1.setText("Habilitar Alteração");
+                    jTable1.setEnabled(false);
+                }
             }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -176,17 +183,18 @@ public class AltProduto extends javax.swing.JFrame {
         {
             jTable1.setEnabled(true);
             jButton1.setText("Alterar");
+            jButton2.setEnabled(true);
         }
         else if(jButton1.getText().equals("Alterar"))
         {
             try
             {
                 Produtos pro = new Produtos();
-                pro.setCodProduto(Integer.parseInt((String) jTable1.getValueAt(jTable1.getSelectedRow(), 0)));
-                pro.setCodUnidade(Integer.parseInt((String) jTable1.getValueAt(jTable1.getSelectedRow(), 2)));
+                pro.setCodProduto(Integer.parseInt(((String) jTable1.getValueAt(jTable1.getSelectedRow(), 0)).replace("'", "")));
+                pro.setCodUnidade(Integer.parseInt(((String) jTable1.getValueAt(jTable1.getSelectedRow(), 2)).replace("'", "")));
                 pro.setDataPreco(new Date(Calendar.getInstance().getTime().getTime()));
-                pro.setPrecoUnidade(Integer.parseInt((String) jTable1.getValueAt(jTable1.getSelectedRow(), 3)));
-                pro.setProduto((String) jTable1.getValueAt(jTable1.getSelectedRow(), 1));
+                pro.setPrecoUnidade(Double.parseDouble(((String) jTable1.getValueAt(jTable1.getSelectedRow(), 3)).replace(",", ".").replace("'", "")));
+                pro.setProduto(((String) jTable1.getValueAt(jTable1.getSelectedRow(), 1)).replace("'", ""));
                 pro.Alterar();
                 JOptionPane.showMessageDialog(null, "Alteração do cliente realizada com sucesso.", "Alterar cliente com sucesso", 3);
                 fillTable();
@@ -197,7 +205,8 @@ public class AltProduto extends javax.swing.JFrame {
             }
             finally
             {
-                jTable1.setEnabled(true);
+                jTable1.setEnabled(false);
+                jButton2.setEnabled(false);
                 jButton1.setText("Habilitar Alteração");
             }
         }

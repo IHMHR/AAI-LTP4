@@ -152,7 +152,15 @@ public class Vendedores
             arq.write(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " - " + e + " (Apagar)(Vendedores)\n");
             arq.flush();
             arq.close();
-            throw new ErrorHandle("Falha na exclusao de Vendedor \n " + e);
+            
+            if(e.getMessage().startsWith("Não pode ser realizar a exclusão"))
+            {
+                throw new ErrorHandle(e.getMessage());
+            }
+            else
+            {
+                throw new ErrorHandle("Falha na exclusao de Vendedor");
+            }
         }
         finally
         {

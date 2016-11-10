@@ -4,3 +4,67 @@ Reason: Unable to complete network request to host "server1b". (AbrirConexao)
 2016-11-08 15:47:53 - org.firebirdsql.jdbc.FBSQLException: GDS Exception. 335544721. Unable to complete network request to host "server1b".
 Reason: Unable to complete network request to host "server1b". (AbrirConexao)
 2016-11-08 15:47:53 - erro.ErrorHandle: Falha na realizar a abertura da conexão (PesquisaPeloNome)(Vendedores)
+2016-11-08 19:22:45 - org.firebirdsql.jdbc.FBSQLException: GDS Exception. 335544321. arithmetic exception, numeric overflow, or string truncation (Alterar(String table, String fieldsNvalues, String condition))
+2016-11-08 19:22:45 - erro.ErrorHandle: Falha ao realizar a alteração de dados na tabela Clientes (Alterar)(Clientes)
+2016-11-08 19:25:13 - org.firebirdsql.jdbc.FBSQLException: GDS Exception. 335544321. arithmetic exception, numeric overflow, or string truncation (Alterar(String table, String fieldsNvalues, String condition))
+2016-11-08 19:25:13 - erro.ErrorHandle: Falha ao realizar a alteração de dados na tabela Clientes (Alterar)(Clientes)
+2016-11-08 19:27:45 - org.firebirdsql.jdbc.FBSQLException: GDS Exception. 335544321. arithmetic exception, numeric overflow, or string truncation (Alterar(String table, String fieldsNvalues, String condition))
+2016-11-08 19:27:45 - erro.ErrorHandle: Falha ao realizar a alteração de dados na tabela Clientes (Alterar)(Clientes)
+2016-11-08 19:28:07 - org.firebirdsql.jdbc.FBSQLException: GDS Exception. 335544321. arithmetic exception, numeric overflow, or string truncation (Alterar(String table, String fieldsNvalues, String condition))
+2016-11-08 19:28:07 - erro.ErrorHandle: Falha ao realizar a alteração de dados na tabela Clientes (Alterar)(Clientes)
+2016-11-08 19:28:55 - org.firebirdsql.jdbc.FBSQLException: GDS Exception. 335544321. arithmetic exception, numeric overflow, or string truncation (Alterar(String table, String fieldsNvalues, String condition))
+2016-11-08 19:28:55 - erro.ErrorHandle: Falha ao realizar a alteração de dados na tabela Clientes (Alterar)(Clientes)
+2016-11-08 19:29:51 - org.firebirdsql.jdbc.FBSQLException: GDS Exception. 335544321. arithmetic exception, numeric overflow, or string truncation (Alterar(String table, String fieldsNvalues, String condition))
+2016-11-08 19:29:51 - erro.ErrorHandle: Falha ao realizar a alteração de dados na tabela Clientes (Alterar)(Clientes)
+2016-11-08 19:30:33 - org.firebirdsql.jdbc.FBSQLException: GDS Exception. 335544321. arithmetic exception, numeric overflow, or string truncation (Alterar(String table, String fieldsNvalues, String condition))
+2016-11-08 19:30:33 - erro.ErrorHandle: Falha ao realizar a alteração de dados na tabela Clientes (Alterar)(Clientes)
+2016-11-08 19:35:07 - org.firebirdsql.jdbc.FBSQLException: GDS Exception. 335544569. Dynamic SQL Error
+SQL error code = -104
+Token unknown - line 1, column 92
+CENTRO (Alterar(String table, String fieldsNvalues, String condition))
+2016-11-08 19:35:07 - erro.ErrorHandle: Falha ao realizar a alteração de dados na tabela Clientes (Alterar)(Clientes)
+2016-11-08 19:37:54 - org.firebirdsql.jdbc.FBSQLException: GDS Exception. 335544569. Dynamic SQL Error
+SQL error code = -104
+Token unknown - line 1, column 32
+GACIA (Alterar(String table, String fieldsNvalues, String condition))
+2016-11-08 19:37:54 - erro.ErrorHandle: Falha ao realizar a alteração de dados na tabela Clientes (Alterar)(Clientes)
+2016-11-08 19:38:58 - org.firebirdsql.jdbc.FBSQLException: GDS Exception. 335544569. Dynamic SQL Error
+SQL error code = -104
+Token unknown - line 1, column 32
+GACIA (Alterar(String table, String fieldsNvalues, String condition))
+2016-11-08 19:38:58 - erro.ErrorHandle: Falha ao realizar a alteração de dados na tabela Clientes (Alterar)(Clientes)
+2016-11-08 19:44:29 - org.firebirdsql.jdbc.FBSQLException: GDS Exception. 335544569. Dynamic SQL Error
+SQL error code = -206
+Column unknown
+COD_UNIDADE
+At line 1, column 55 (Alterar(String table, String fieldsNvalues, String condition))
+2016-11-08 19:44:29 - erro.ErrorHandle: Falha ao realizar a alteração de dados na tabela tabProdutos (Alterar)(Produtos)
+2016-11-08 19:45:17 - org.firebirdsql.jdbc.FBSQLException: GDS Exception. 335544569. Dynamic SQL Error
+SQL error code = -206
+Column unknown
+COD_UNIDADE
+At line 1, column 55 (Alterar(String table, String fieldsNvalues, String condition))
+2016-11-08 19:45:17 - erro.ErrorHandle: Falha ao realizar a alteração de dados na tabela tabProdutos (Alterar)(Produtos)
+2016-11-08 19:46:54 - org.firebirdsql.jdbc.FBSQLException: GDS Exception. 335544569. Dynamic SQL Error
+SQL error code = -206
+Column unknown
+PRECO_UNIDADE
+At line 1, column 71 (Alterar(String table, String fieldsNvalues, String condition))
+2016-11-08 19:46:54 - erro.ErrorHandle: Falha ao realizar a alteração de dados na tabela tabProdutos (Alterar)(Produtos)
+2016-11-08 19:49:48 - org.firebirdsql.jdbc.FBSQLException: GDS Exception. 335544569. Dynamic SQL Error
+SQL error code = -104
+Token unknown - line 1, column 135
+ON (Selecionar(String columns, String table))
+2016-11-08 19:49:48 - erro.ErrorHandle: Falha ao realizar a seleção de dados na tabela vendas v INNER JOIN vendedores ven ON ON v.cod_vendedor = ven.cod_vendedor INNER JOIN clientes c ON c.codCliente = v.codCliente
+org.firebirdsql.jdbc.FBSQLException: GDS Exception. 335544569. Dynamic SQL Error
+SQL error code = -104
+Token unknown - line 1, column 135
+ON (listaVendas)(Vendas)
+2016-11-08 19:57:20 - erro.ErrorHandle: Não pode ser realizar a exclusão do cliente devido ao fato do mesmo já ter realizado compras. (Apagar)(Clientes)
+2016-11-08 20:02:27 - erro.ErrorHandle: Não pode ser realizar a exclusão do cliente devido ao fato do mesmo já ter realizado compras. (Apagar)(Clientes)
+2016-11-08 20:02:57 - erro.ErrorHandle: Não pode ser realizar a exclusão do cliente devido ao fato do mesmo já ter realizado compras. (Apagar)(Clientes)
+2016-11-08 20:03:26 - erro.ErrorHandle: Não pode ser realizar a exclusão do cliente devido ao fato do mesmo já ter realizado compras. (Apagar)(Clientes)
+2016-11-08 20:04:53 - erro.ErrorHandle: Não pode ser realizar a exclusão do cliente devido ao fato do mesmo já ter realizado compras. (Apagar)(Clientes)
+2016-11-08 20:05:21 - erro.ErrorHandle: Não pode ser realizar a exclusão do cliente devido ao fato do mesmo já ter realizado compras. (Apagar)(Clientes)
+2016-11-08 20:09:45 - erro.ErrorHandle: Não pode ser realizar a exclusão do vendedor devido ao fato do mesmo já ter realizado vendas. (Apagar)(Vendedores)
+2016-11-08 20:11:11 - erro.ErrorHandle: Não pode ser realizar a exclusão do vendedor devido ao fato do mesmo já ter realizado vendas. (Apagar)(Vendedores)

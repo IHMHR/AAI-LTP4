@@ -118,7 +118,7 @@ public class Produtos
         retorno = null;
         try
         {
-            retorno = Banco.Selecionar("codProduto, produto, cod_unidade, preco_unidade, dataPreco", TABLE_NAME, "WHERE produto LIKE '" + produto + "%' ORDER BY produto ASC");
+            retorno = Banco.Selecionar("codProduto, produto, codunidade, preco, dataPreco", TABLE_NAME, "WHERE produto LIKE '" + produto + "%' ORDER BY produto ASC");
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
@@ -152,7 +152,7 @@ public class Produtos
     {
         try
         {
-            Banco.Alterar(TABLE_NAME, String.format("produto = '%1$s', cod_unidade = %2$s, preco_unidade = %3$s, dataPreco = '%4$s'", produto, codUnidade, precoUnidade, dataPreco), "codProduto = " + codProduto);
+            Banco.Alterar(TABLE_NAME, String.format("produto = '%1$s', codunidade = %2$s, preco = %3$s, dataPreco = '%4$s'", produto, codUnidade, precoUnidade, dataPreco), "codProduto = " + codProduto);
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {
@@ -183,7 +183,15 @@ public class Produtos
             arq.write(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " - " + e + " (Apagar)(Produtos)\n");
             arq.flush();
             arq.close();
-            throw new ErrorHandle("Falha ao excluir Produto");
+            
+            if(e.getMessage().startsWith("Não pode ser realizar a exclusão"))
+            {
+                throw new ErrorHandle(e.getMessage());
+            }
+            else
+            {
+                throw new ErrorHandle("Falha ao excluir Produto");
+            }
         }
     }
     
@@ -192,7 +200,7 @@ public class Produtos
         retorno = null;
         try
         {
-            retorno = Banco.Selecionar("produto AS 'Nome do Produto', codproduto AS 'Código', preco_unidade AS 'Preço Unitário', dataPreco AS 'Data de cadastramento'", TABLE_NAME, "ORDER BY produto ASC");
+            retorno = Banco.Selecionar("produto AS 'Nome do Produto', codproduto AS 'Código', preco AS 'Preço Unitário', dataPreco AS 'Data de cadastramento'", TABLE_NAME, "ORDER BY produto ASC");
         }
         catch (ErrorHandle | ClassNotFoundException e)
         {

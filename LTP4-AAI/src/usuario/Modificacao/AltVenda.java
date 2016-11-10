@@ -25,6 +25,7 @@ public class AltVenda extends javax.swing.JFrame {
      */
     public AltVenda() {
         initComponents();
+        jButton2.setEnabled(false);
     }
 
     /**
@@ -85,6 +86,7 @@ public class AltVenda extends javax.swing.JFrame {
 
             }
         ));
+        jTable1.setEnabled(false);
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -96,12 +98,10 @@ public class AltVenda extends javax.swing.JFrame {
                 .addComponent(jButton1)
                 .addGap(227, 227, 227)
                 .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 164, Short.MAX_VALUE)
                 .addComponent(jButton3)
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jScrollPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -128,6 +128,7 @@ public class AltVenda extends javax.swing.JFrame {
         if(jButton1.getText().equals("Habilitar Alteração"))
         {
             jTable1.setEnabled(true);
+            jButton2.setEnabled(true);
             jButton1.setText("Alterar");
         }
         else if(jButton1.getText().equals("Alterar"))
@@ -148,7 +149,8 @@ public class AltVenda extends javax.swing.JFrame {
             }
             finally
             {
-                jTable1.setEnabled(true);
+                jTable1.setEnabled(false);
+                jButton2.setEnabled(false);
                 jButton1.setText("Habilitar Alteração");
             }
         }
@@ -174,6 +176,12 @@ public class AltVenda extends javax.swing.JFrame {
                 catch (ErrorHandle | NumberFormatException | IOException e)
                 {
                     JOptionPane.showMessageDialog(null, e.getMessage(), "Falha ao excluir", 0);
+                }
+                finally
+                {
+                    jButton2.setEnabled(false);
+                    jButton1.setText("Habilitar Alteração");
+                    jTable1.setEnabled(false);
                 }
             }
         }
